@@ -1,138 +1,177 @@
-<div id="shopify-section-template--18137954255017__top_categories_kMi8G3" class="shopify-section"><style>
-.top_categories_template--18137954255017__top_categories_kMi8G3 {
-  background-color:  ;
-}
+{% comment %}
+  Section: Mobile Collection List
+  Description: Displays a horizontal scrollable list of circular images with titles and Instagram Story-inspired rotating borders.
+  Last Updated: 2025-03-07
+  Backup Tag: v1.0-instagram-border
+{% endcomment %}
 
-
-.top_categories_section .categories_main {
-    display: flex;
-    gap: 10px;
-    overflow-x: scroll;
-    white-space: nowrap;
-    justify-content: center;
-}
-  
-.top_categories_section {
-    display: block;
-    padding: 0 10px 0 15px;
-    margin: 2rem 0;
-}
-  /* Hide scrollbar for Chrome, Safari and Opera */
-.top_categories_section .categories_main::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.top_categories_section .categories_main {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-.top_categories_section .categories_main::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-  
-.categories_main .categories_list {
-  width:none;
-  flex: none;
-  text-align: center;
-  padding: 0 5px;
-}
-
-.categories_list a {
-  text-decoration: none;
-}
-
-.categories_list .image {
-  border: 2px solid #000;
-  border-radius: 100px;
-}
-  
-.categories_list .image img {
-  width: 100%;
-  height: 100%;
-  border-radius: 100px;
-  object-fit: cover;
-  display: flex;
-}
-
-.categories_list .categories_title {
-  padding: 4.8px 0 0;
-}
-  
-.categories_list .categories_title h4 {
-  color: #000;
-  font-size: 11px;
-  line-height: 19.8px;
-  letter-spacing: -0.5px;
-  font-weight: 600;
-  font-style: normal;
-}
-
-@media only screen and (max-width: 480px) {
-
-  .top_categories_section {
-    display: block;
-    padding: 0 10px 0 15px;
-    margin: 2rem 0;
-  }
-
-.top_categories_section .categories_main {
-    display: flex;
-    gap: 10px;
-    overflow-x: scroll;
-    white-space: nowrap;
-    justify-content: flex-start;
-    padding: 20px 0px;
-}
-.categories_main .categories_list {
-  width: calc(30.5% - 10px);
-  flex: 1 0 calc(30.5% - 10px);
-  text-align: center;
-  padding: 0 5px;
-}
-
-
-
-  
-} 
-</style>
-
-<div class="top_categories_section top_categories_template--18137954255017__top_categories_kMi8G3">
-  <div class="page__width">
-    <div class="categories_main">
-
-           {% for block in section.blocks %}
-        <div class="categories_list">
-          <a href="{{ block.settings.link }}">
-            
-              <div class="image">
-                <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.title }}" height="100" width="100" loading="lazy">
-              </div>
-            
-            
-               <div class="categories_title">
-                  <h4>{{ block.settings.title }}</h4>
-               </div>
-            
+<div class="new-mobile-collection-list-wrapper">
+  {% comment %} Wrapper for the scrollable list of collection items {% endcomment %}
+  <div class="new-mobile-collection-list">
+    {% for block in section.blocks %}
+      {% if block.settings.image and block.settings.title %}
+        {% comment %} Individual collection item with image and title {% endcomment %}
+        <div class="new-collection-item" style="width: 100px; max-width: 100px; min-width: 100px; height: 140px; text-align: center; padding: 0 5px; flex-shrink: 0; position: relative;">
+          <a href="{{ block.settings.link | default: '#' }}" style="text-decoration: none;">
+            <div class="new-collection-image" style="width: 100px; height: 100px; border-radius: 50%; position: relative;">
+              <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.title }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; position: relative; z-index: 2;">
+            </div>
+            <div class="new-collection-title" style="padding-top: 5px;">
+              <h4 style="color: #000; font-size: 11px; line-height: 13px; font-weight: 600; white-space: normal; overflow: hidden; text-overflow: ellipsis; margin: 0;">
+                {{ block.settings.title }}
+              </h4>
+            </div>
           </a>
         </div>
-        {% endfor %}
-   
-       
-    </div>
+      {% endif %}
+    {% endfor %}
   </div>
 </div>
 
-</div>
+<style>
+  /* Wrapper styles for the scrollable list */
+  .new-mobile-collection-list-wrapper {
+    width: 100%;
+    margin: 0 auto;
+    overflow-x: auto;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    max-width: 1600px;
+  }
 
+  /* Flex container for the list of items */
+  .new-mobile-collection-list {
+    display: flex;
+    gap: 15px; /* Prevents border overlap */
+    white-space: nowrap;
+    min-width: 0;
+    justify-content: center;
+  }
 
+  /* Hide scrollbar for a cleaner look */
+  .new-mobile-collection-list-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+  .new-mobile-collection-list-wrapper {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Instagram Story-inspired rotating border */
+  .new-collection-image {
+    position: relative;
+  }
+
+  .new-collection-image::before {
+    content: '';
+    position: absolute;
+    top: -3px; /* 6px total thickness */
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border-radius: 50%;
+    background: conic-gradient(#833AB4, #FD1D1D, #FCAF45, #E1306C, #833AB4); /* Instagram Story colors: Purple, Red/Orange, Orange, Pink */
+    animation: rainbowRotate 4s linear infinite;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Animation for the rotating border */
+  @keyframes rainbowRotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Tablet styles */
+  @media only screen and (min-width: 481px) and (max-width: 767px) {
+    .new-mobile-collection-list-wrapper {
+      padding: 20px 10px;
+      max-width: 1600px;
+    }
+
+    .new-mobile-collection-list .new-collection-item {
+      width: 100px;
+      max-width: 100px;
+      min-width: 100px;
+      height: 140px;
+    }
+
+    .new-mobile-collection-list .new-collection-item .new-collection-image {
+      width: 100px;
+      height: 100px;
+    }
+
+    .new-collection-image::before {
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+    }
+
+    .new-mobile-collection-list .new-collection-item .new-collection-image img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  /* Desktop styles */
+  @media only screen and (min-width: 768px) {
+    .new-mobile-collection-list-wrapper {
+      padding: 20px 10px;
+      max-width: 1600px;
+    }
+
+    .new-mobile-collection-list .new-collection-item {
+      width: 150px;
+      max-width: 150px;
+      min-width: 150px;
+      height: 190px;
+    }
+
+    .new-mobile-collection-list .new-collection-item .new-collection-image {
+      width: 150px;
+      height: 150px;
+    }
+
+    .new-collection-image::before {
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+    }
+
+    .new-mobile-collection-list .new-collection-item .new-collection-image img {
+      width: 150px;
+      height: 150px;
+    }
+
+    .new-mobile-collection-list .new-collection-item .new-collection-title h4 {
+      font-size: 14px;
+      line-height: 16px;
+    }
+  }
+
+  /* Mobile styles */
+  @media only screen and (max-width: 480px) {
+    .new-mobile-collection-list-wrapper {
+      padding: 20px 10px;
+      max-width: 1600px;
+    }
+  }
+</style>
+
+{% comment %}
+  Schema for the section, defining the blocks for images, titles, and links.
+  This allows the section to be configured in the Shopify Customizer.
+{% endcomment %}
 {% schema %}
 {
   "name": "Mobile Collection List",
-  "settings": [
-    
-  ],
+  "settings": [],
   "blocks": [
     {
       "type": "image",
@@ -143,11 +182,11 @@
           "id": "image",
           "label": "Collection Image"
         },
-         {
+        {
           "type": "text",
           "id": "title",
           "label": "Collection Title",
-           "default": "Summer Clearance"
+          "default": "Summer Clearance"
         },
         {
           "type": "url",
@@ -163,5 +202,4 @@
     }
   ]
 }
-
 {% endschema %}

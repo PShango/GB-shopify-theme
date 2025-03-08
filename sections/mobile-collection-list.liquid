@@ -1,9 +1,13 @@
+ALL PERFECT
 {% comment %}
   Section: Mobile Collection List
   Description: Displays a horizontal scrollable list of circular images with titles and Instagram Story-inspired rotating borders.
   Last Updated: 2025-03-08
-  Backup Tag: v1.0-instagram-border
+  Backup Tag: v1.1-fix-tablet-desktop
 {% endcomment %}
+
+
+
 
 <div class="new-mobile-collection-list-wrapper">
   {% comment %} Wrapper for the scrollable list of collection items {% endcomment %}
@@ -11,15 +15,13 @@
     {% for block in section.blocks %}
       {% if block.settings.image and block.settings.title %}
         {% comment %} Individual collection item with image and title {% endcomment %}
-        <div class="new-collection-item" style="width: 100px; max-width: 100px; min-width: 100px; height: 140px; text-align: center; padding: 0 5px; flex-shrink: 0; position: relative;">
+        <div class="new-collection-item">
           <a href="{{ block.settings.link | default: '#' }}" style="text-decoration: none;">
-            <div class="new-collection-image" style="width: 100px; height: 100px; border-radius: 50%; position: relative;">
-              <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.title }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; position: relative; z-index: 2;">
+            <div class="new-collection-image">
+              <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.title }}">
             </div>
-            <div class="new-collection-title" style="padding-top: 5px;">
-              <h4 style="color: #000; font-size: 11px; line-height: 13px; font-weight: 600; white-space: normal; overflow: hidden; text-overflow: ellipsis; margin: 0;">
-                {{ block.settings.title }}
-              </h4>
+            <div class="new-collection-title">
+              <h4>{{ block.settings.title }}</h4>
             </div>
           </a>
         </div>
@@ -27,55 +29,94 @@
     {% endfor %}
   </div>
 </div>
-
 <style>
   /* Wrapper styles for the scrollable list */
   .new-mobile-collection-list-wrapper {
     width: 100%;
     margin: 0 auto;
     overflow-x: auto;
-    padding: 20px 0 20px 10px; /* Adjusted padding to start from left */
+    padding: 10px 0 10px 5px; /* Reduced top padding from 20px to 10px */
     box-sizing: border-box;
     max-width: 1600px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
-
-  /* Flex container for the list of items */
-  .new-mobile-collection-list {
-    display: flex;
-    gap: 15px; /* Prevents border overlap */
-    white-space: nowrap;
-    min-width: 0;
-    justify-content: center; /* Default for desktop */
-  }
-
   /* Hide scrollbar for a cleaner look */
   .new-mobile-collection-list-wrapper::-webkit-scrollbar {
     display: none;
   }
-  .new-mobile-collection-list-wrapper {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  /* Flex container for the list of items */
+  .new-mobile-collection-list {
+    display: flex;
+    gap: 17px;
+    white-space: nowrap;
+    min-width: 100%;
+    justify-content: flex-start;
+    padding-left: 5px;
   }
-
+  /* Ensure text is centered within each item */
+  .new-collection-item {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100px;
+    max-width: 100px;
+    min-width: 100px;
+    height: 140px;
+    padding: 0 5px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  /* Ensure first item is fully visible but with less margin */
+  .new-collection-item:first-child {
+    margin-left: 5px;
+  }
   /* Instagram Story-inspired rotating border */
   .new-collection-image {
     position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
   }
-
   .new-collection-image::before {
     content: '';
     position: absolute;
-    top: -3px; /* 6px total thickness */
-    left: -3px;
-    right: -3px;
-    bottom: -3px;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
     border-radius: 50%;
-    background: conic-gradient(#833AB4, #FD1D1D, #FCAF45, #E1306C, #833AB4); /* Instagram Story colors: Purple, Red/Orange, Orange, Pink */
+    background: conic-gradient(#833AB4, #FD1D1D, #FCAF45, #E1306C, #833AB4);
     animation: rainbowRotate 4s linear infinite;
     z-index: 1;
     pointer-events: none;
   }
-
+  .new-collection-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+  }
+  .new-collection-title {
+    padding-top: 5px;
+    width: 100%;
+    text-align: center;
+  }
+  .new-collection-title h4 {
+    color: #000;
+    font-size: 11px;
+    line-height: 13px;
+    font-weight: 600;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    padding: 0 5px;
+  }
   /* Animation for the rotating border */
   @keyframes rainbowRotate {
     0% {
@@ -85,86 +126,91 @@
       transform: rotate(360deg);
     }
   }
-
+  
   /* Tablet styles */
   @media only screen and (min-width: 481px) and (max-width: 767px) {
     .new-mobile-collection-list-wrapper {
-      padding: 20px 0 20px 10px; /* Adjusted padding */
+      padding: 15px 10px; /* Reduced top padding from 20px to 15px */
       max-width: 1600px;
+      overflow-x: auto;
     }
     .new-mobile-collection-list {
-      justify-content: flex-start; /* Align to left on tablet */
+      justify-content: flex-start;
+      gap: 17px;
+      padding-left: 5px;
+      white-space: nowrap;
+      flex-wrap: nowrap;
     }
-    .new-mobile-collection-list .new-collection-item {
-      width: 100px;
-      max-width: 100px;
-      min-width: 100px;
-      height: 140px;
-    }
-    .new-mobile-collection-list .new-collection-item .new-collection-image {
-      width: 100px;
-      height: 100px;
-    }
-    .new-collection-image::before {
-      top: -3px;
-      left: -3px;
-      right: -3px;
-      bottom: -3px;
-    }
-    .new-mobile-collection-list .new-collection-item .new-collection-image img {
-      width: 100px;
-      height: 100px;
+    .new-collection-item:first-child {
+      margin-left: 5px;
     }
   }
-
+  
   /* Desktop styles */
   @media only screen and (min-width: 768px) {
     .new-mobile-collection-list-wrapper {
-      padding: 20px 10px;
+      padding: 20px 0;
       max-width: 1600px;
+      margin: 0 auto;
+      text-align: center;
     }
-    .new-mobile-collection-list .new-collection-item {
-      width: 150px;
-      max-width: 150px;
-      min-width: 150px;
-      height: 190px;
+    .new-mobile-collection-list {
+      gap: 20px;
+      justify-content: center;
+      display: inline-flex;
+      white-space: nowrap;
+      flex-wrap: nowrap;
+      padding: 0 20px;
     }
-    .new-mobile-collection-list .new-collection-item .new-collection-image {
-      width: 150px;
-      height: 150px;
+    .new-collection-item {
+      width: 130px;
+      max-width: 130px;
+      min-width: 130px;
+      height: 170px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 5px;
+    }
+    .new-collection-item:first-child {
+      margin-left: 5px;
+    }
+    .new-collection-image {
+      width: 130px;
+      height: 130px;
     }
     .new-collection-image::before {
-      top: -3px;
-      left: -3px;
-      right: -3px;
-      bottom: -3px;
+      top: -4px;
+      left: -4px;
+      right: -4px;
+      bottom: -4px;
     }
-    .new-mobile-collection-list .new-collection-item .new-collection-image img {
-      width: 150px;
-      height: 150px;
+    .new-collection-image img {
+      width: 130px;
+      height: 130px;
     }
-    .new-mobile-collection-list .new-collection-title h4 {
+    .new-collection-title h4 {
       font-size: 14px;
       line-height: 16px;
     }
   }
-
+  
   /* Mobile styles */
   @media only screen and (max-width: 480px) {
     .new-mobile-collection-list-wrapper {
-      padding: 20px 0 20px 10px; /* Adjusted padding */
+      padding: 2px 0 12px 5px; /* Reduced top padding from 20px to 10px */
       max-width: 1600px;
     }
     .new-mobile-collection-list {
-      justify-content: flex-start; /* Align to left on mobile */
+      justify-content: flex-start;
+      gap: 17px;
+      padding-left: 5px;
+    }
+    .new-collection-item:first-child {
+      margin-left: 5px;
     }
   }
 </style>
-
-{% comment %}
-  Schema for the section, defining the blocks for images, titles, and links.
-  This allows the section to be configured in the Shopify Customizer.
-{% endcomment %}
 {% schema %}
 {
   "name": "Mobile Collection List",
@@ -200,3 +246,4 @@
   ]
 }
 {% endschema %}
+

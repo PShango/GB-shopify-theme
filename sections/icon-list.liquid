@@ -1,0 +1,179 @@
+<div id="shopify-section-template--18137954255017__brand_features_icons_wWb47r" class="shopify-section"><style>
+.brand_icon_sectn_template--18137954255017__brand_features_icons_wWb47r {
+  background-color: ;
+}
+
+.brand_feature_icon .brand_icon_heading {
+  max-width: 400px;
+  width:100%;
+}
+
+.brand_icon_heading h2{
+  color: #8ebee6;
+  font-size:20px;
+  font-weight:700;
+  letter-spacing:-0.5px;
+  line-height: 26px;
+}
+
+.brand_feature_icon .brand_icons_main {
+  display: flex;
+  gap: 80px;
+  margin: 3rem 0;
+}
+
+.brand_icons_main .brand_icon_list {
+  width:calc(25.0% - 80px);
+  max-width:100%;
+}
+
+.brand_icon_list .image {
+  width: 60%;
+}
+
+.brand_icon_list .image img{
+  max-width:100%;
+  width:100%;
+  height:100%;
+  display:flex;
+  object-fit: cover;
+}
+
+.brand_content .heading {
+  min-height: 44px;
+}
+  
+.brand_content .heading h2{
+  color:rgb(142, 190, 230);
+  font-weight:700;
+  font-style:normal;
+  font-size:16px;
+  line-height:22.4px;
+  letter-spacing:0.2px;
+  margin: 0.3em 0;
+}
+
+.brand_content .icon_text p,
+.brand_content .icon_text a{
+  color: #121212;
+  font-weight:500;
+  font-style:normal;
+  font-size:15px;
+  line-height:21px;
+  letter-spacing:-0.5px;
+  padding: 0.3em 0 0;
+}
+
+.brand_content .icon_text a {
+  text-decoration: underline;
+}
+
+
+@media only screen and (max-width:768px) {
+
+  .brand_icon_heading h2 {
+    text-align:center;
+  }
+  
+  .brand_feature_icon .brand_icons_main {
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 2rem 0;
+  }
+
+  .brand_icons_main .brand_icon_list {
+    width: calc(50.0% - 10px);
+  }
+
+  .brand_icon_list .image {
+    width: 80%;
+   }
+
+  .brand_content .heading {
+    min-height: auto;
+  }
+}
+</style>
+<div class="brand_feature_icon brand_icon_sectn_template--18137954255017__brand_features_icons_wWb47r" id="brand_feature_template--18137954255017__brand_features_icons_wWb47r">
+  <div class="page__width full-width">
+    
+      <div class="brand_icon_heading" id="brand_feature_heading_template--18137954255017__brand_features_icons_wWb47r">
+        <h2>{{ section.settings.heading }}</h2>
+      </div>
+    
+    <div class="brand_icons_main" id="brand_icon_main_template--18137954255017__brand_features_icons_wWb47r">
+          {% for block in section.blocks %}
+        <div class="brand_icon_list" id="brand_list_text_EyRrTh">
+          
+            <div class="image" id="brand_list_text_EyRrTh">
+             <a href="" id="brand_anchor_text_EyRrTh">
+              <img src="{{ block.settings.image | img_url: 'master' }}" alt="4 Million+ Happy Customers" height="250" width="250" loading="lazy">
+            </a>
+            </div>
+          
+          <div class="brand_content" id="brand_content_text_EyRrTh">
+            
+              <div class="heading" id="brand_heading_text_EyRrTh">
+                <h2>{{ block.settings.title }}</h2>
+              </div>
+            
+            
+              <div class="icon_text" id="iconText_text_EyRrTh">
+                <p>{{ block.settings.subtitle }}</p>
+              </div>
+            
+          </div>
+        </div>
+      {% endfor %}
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Icon List",
+  "settings": [
+     {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default":"We're On A Mission To Create Moments Of Happiness And Comfort"
+        },
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Icon",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default":"4 Million+ Happy Customers"
+        },
+        {
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "Sub Title",
+          "default":"<p>Sending cuddles around the globe.</p>"
+        }
+        
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon List"
+    }
+  ]
+}
+
+{% endschema %}

@@ -1,0 +1,291 @@
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'section-related-products.css' | asset_url | stylesheet_tag }}
+
+{% if section.settings.image_shape == 'blob' %}
+  {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+
+
+
+<style>
+
+ .product_recommend_slider .slick-dots li button:before {
+    font-size: 10px;
+  
+}
+.product_recommend_slider .slick-dots li {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+     margin: 0 0px; 
+    padding: 0;
+    cursor: pointer;
+}
+  .product_recommend_slider ul.slick-dots {
+    bottom: -50px;
+}
+ 
+  .related-products__heading {
+  text-align: center;
+  font-size: {{ section.settings.heading_size }}px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.product-recomendation .product_list .image a img {
+    aspect-ratio: 0;
+}
+
+  .grid__items {
+    width: 95%!important;
+}
+
+
+  
+   @media screen and (max-width: 767px) {
+     
+.product_recommend_slider ul.slick-dots {
+    bottom: -25px;
+}
+
+   }
+</style>
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div
+    class="related-products page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+   
+  >
+  
+     {% if product.metafields.custom.related_product.value != blank  %}
+      <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }}">
+        {{ section.settings.heading }}
+      </h2>
+      <ul
+        class="grid product-grid product_recommend_slider"
+        role="list"
+      >
+        {% assign skip_card_product_styles = false %}
+        
+    {% assign test = product.metafields.custom.related_product.value  %}
+        
+        {% for card_product in test %}
+          <li class="grid__items">
+            <div class="product_list">
+              <div class="image">
+                <a href="{{ card_product.url  | within: collection }}">
+                  <img
+                    class="first_image"
+                    src="{{ card_product.featured_image | img_url: 'medium' }}"
+                    alt="{{ card_product.title }}"
+                  >
+                  <img
+                    class="second_image"
+                    src="{{ card_product.images[1] | img_url: 'master' }}"
+                    alt="{{ card_product.title }}"
+                  >
+                </a>
+                {% if card_product.metafields.custom.badge.value != blank %}
+                  <div class="product_tag prodCallout tag__LAST CHANCE ">
+                    {{ card_product.metafields.custom.badge.value }}
+                  </div>
+                {% endif %}
+              </div>
+              <div class="content">
+                <div class="product_title">
+                  <a href="{{ card_product.url | within: collection}}">
+                    <h4>{{ card_product.title }}</h4>
+                  </a>
+                </div>
+                {% render 'price-card', product: card_product, price_class: '', show_compare_at_price: true %}
+              </div>
+            </div>
+          </li>
+          {%- assign skip_card_product_styles = true -%}
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+  {% if section.settings.image_shape == 'arch' %}
+    {{ 'mask-arch.svg' | inline_asset_content }}
+  {%- endif -%}
+</div>
+
+    <script>
+      $('.product_recommend_slider').slick({
+      dots:true,     
+      infinite: false,
+      speed: 300,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 1200,
+            settings: {
+            slidesToShow: 3,
+          }
+        },
+        {
+          breakpoint: 768,
+            settings: {
+            slidesToShow: 2,
+          }
+        },
+        {
+          breakpoint: 480,
+            settings: {
+            slidesToShow: 2,
+          }
+        }
+  ]
+});
+  
+</script>
+
+
+{% schema %}
+{
+  "name": "t:sections.related-products.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.related-products.settings.paragraph__1.content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "t:sections.related-products.settings.paragraph__1.default",
+      "label": "t:sections.related-products.settings.heading.label"
+    },
+     {
+      "type": "range",
+      "id": "heading_size",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading Size",
+      "default": 30
+    },
+
+   
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.related-products.settings.products_to_show.label"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.related-products.settings.columns_desktop.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "info": "t:sections.all.colors.has_cards_info",
+      "default": "scheme-1"
+    },
+   
+ 
+ 
+    {
+      "type": "header",
+      "content": "t:sections.related-products.settings.header_mobile.content"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "default": "2",
+      "label": "t:sections.related-products.settings.columns_mobile.label",
+      "options": [
+        {
+          "value": "1",
+          "label": "t:sections.related-products.settings.columns_mobile.options__1.label"
+        },
+        {
+          "value": "2",
+          "label": "t:sections.related-products.settings.columns_mobile.options__2.label"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Left",
+      "default": 20
+    },
+     {
+      "type": "range",
+      "id": "padding_right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Right",
+      "default": 20
+    },
+      {
+      "type": "range",
+      "id": "padding_left_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Left Mobile",
+      "default": 20
+    },
+     {
+      "type": "range",
+      "id": "padding_right_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Right Mobile",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}

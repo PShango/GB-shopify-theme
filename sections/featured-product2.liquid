@@ -1,0 +1,499 @@
+<div id="shopify-section-template--18137954255017__featured_products_XAcNwg" class="shopify-section"> 
+
+<style>
+
+  .pdp_galary_tag {
+    --call-bg: #C5B4E3;
+  }
+  
+  .prodCallout.tag__CLEARANCE, .pdp_galary_tag.tag__clearance {
+    --call-bg: #FF808B;
+  }
+  
+  .fp_tag_style {
+    position: absolute;
+    z-index: 2;
+    bottom: 10px!important;
+    top: unset!important;
+    left: 0!important;
+    right: unset!important;
+    border-radius: 0 15px 15px 0!important;
+  }
+
+  .pdp_galary_tag {
+    text-align: center;
+    padding: 3px 12px;
+    background-color: var(--call-bg);
+    font-size: 15px;
+    color: #000;
+    font-weight: 700;
+    text-transform: uppercase;
+    box-shadow: #0000003d 0 3px 8px;
+    -webkit-box-shadow: rgba(0, 0, 0, .24) 0px 3px 8px;
+   }
+
+/* Featured Product Css */
+.featured_product_section {
+  overflow: hidden;
+}
+
+.featured_product_section .page_width.page__width {
+  max-width: 1330px;
+  margin: 0 auto;
+}
+
+.featured_product_section .product_heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+
+.featured_product_main .slick-slide {
+  margin: 0 18px;
+}
+
+.product_heading .heading.left{
+  text-align: left;
+}
+
+.product_heading .heading.center {
+  text-align: center;
+  width: 100%;
+}
+
+.product_heading .heading.right{
+  text-align: right;
+  width: 100%;
+}
+
+.product_heading .heading h2 {
+  color: rgb(61, 66, 70);
+  font-size: 30px;
+  line-height: normal;
+  font-weight: 700;
+  font-style: normal;
+  margin: 0;
+}
+
+.product_heading .view_all a {
+  color: #3d4246;
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.product_list .image {
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.product_list .image a {
+  display: flex;
+}
+
+
+.image .product_tag p {
+  padding: 3px 12px;
+  background-color: #C5B4E3;
+  border-radius: 0 15px 15px 0;
+  box-shadow: rgba(0, 0, 0, .24) 0px 3px 8px;
+  color: #3d4246;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.product_list .image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+}
+
+.product_list .image img.second_image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.product_list .image:hover img.second_image {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.product_list .image:hover img.first_image {
+  opacity: 0;
+  transform: scale(1.2);
+}
+
+.product_list .content {
+  padding-top: 5.8px;
+}
+
+.content .product_title a,
+.content .product_title a h4 {
+  color: #3d4246;
+  font-size: 18px;
+  line-height: 1.3em;
+  letter-spacing: -0.5px;
+  font-weight: 700;
+  font-style: normal;
+  text-decoration: none;
+  margin: 0;
+}
+
+.product_list .content .product_type {
+  padding-top: 4.8px;
+}
+
+.product_list .content .product_type p {
+  color: rgb(18, 18, 18);
+  font-size: 16px;
+  line-height: 28.8px;
+  letter-spacing: -0.5px;
+  font-weight: 400;
+  font-style: normal;
+  margin: 0;
+}
+
+.content .price_main {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-top: 11px;
+}
+
+.price_main .compare_price span {
+  color: #121212;
+  font-size: 12.8px;
+  line-height: 16px;
+  font-weight: 700;
+  font-style: normal;
+  opacity: 0.5;
+}
+
+.price_main .product_price span {
+  color: #3d4246;
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.price_main.as_compare_price .product_price span {
+  color: rgb(248, 124, 86);
+}
+
+.price_main .saveBadge {
+  padding: 0px 17px;
+  background-color: rgb(28, 174, 76);
+  border-radius: 17px;
+  color: #FFFFFF;
+  font-size: 17px;
+  line-height: 30px;
+  letter-spacing: -0.5px;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.featured_product_main .slick-dots li button {
+  display: none;
+}
+
+.featured_product_main .slick-dots li {
+  width: 56px;
+  height: 5px;
+  background: #ADADAD;
+  border-radius: 50px;
+}
+
+.featured_product_main li.slick-active{
+  background:rgba(248, 124, 86);
+}
+
+.featured_product_main .slick-dots {
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 768px) {
+.content .price_main {
+    column-gap: 6px;
+    row-gap: 11px;
+}
+  .featured_product_section .product_heading {
+    justify-content: center;
+  }
+  
+.image .product_tag p {
+    font-size: 12px;
+}
+  
+  .image .product_tag.tag__FEEDING, .image .product_tag.tag__SHERPA, .image .product_tag.tag__LIMITED, .image .product_tag.tag__SPARKLY, .image .product_tag.tag__Store, .image .product_tag.tag__FREE {
+    padding: 3px 4px;
+    font-size: 11px;
+  }
+  
+  .product_list .content .product_type p {
+    line-height: normal;
+  }
+  .product_heading .view_all {
+    display: none;
+  }
+
+ 
+
+  .featured_product_main .slick-slide {
+    margin: 0 5px;
+  }
+
+  .featured_product_main .product_list {
+    background-color: #F6F6F6;
+    border-radius: 15px;
+    padding: 12px;
+  }
+
+  .product_list .content {
+    padding-top: 13px;
+    /* padding-bottom: 10px; */
+  }
+.content .price_main {
+    padding-top: 5px;
+}
+
+
+  .image .product_tag.tag__SHERPA  {
+    padding: 3px 9px;
+    font-size: 14px;
+  }
+
+  .content .product_title a,
+  .content .product_title a h4 {
+    font-size: 16px; 
+  }
+
+  .price_main .saveBadge {
+    padding: 0 14px;
+  }
+
+  .featured_product_main .slick-dots li {
+    width: 38px;
+  }
+  .product_heading .center.heading h2{
+  font-size:30px;   
+}
+}
+
+
+.grid__item .product_list .image a img {
+  aspect-ratio: 0.82/1;
+}
+.featured_product_mains .product_list {
+    margin-bottom: 25px;
+}
+.featured_product_mains {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 20px;
+    gap: 10px;
+    flex-wrap: nowrap;
+}
+
+
+
+  
+ @media (max-width: 768px) {
+ 
+      .featured_product_mains {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+@media only screen and (max-width: 750px) {
+  
+  .grid__item .product_list .image a img {
+    aspect-ratio: 0.62/1;
+  }
+}
+
+.product_list.slick-slide .product_type {
+    margin-top: 0px;
+    margin-bottom: -5px;
+}  
+
+.featured_product_section .featured_product_mains {
+  padding: 22px 10px 30px;
+}
+  
+@media (max-width: 768px) {
+    .featured_product_section .featured_product_main {
+        padding: 40px 0 10px;
+    }
+  .full-width {
+    padding: 0 1rem;
+    margin: 7rem auto;
+}
+  .featured_product_main .slick-slide {
+    margin: 0 5px;
+}
+
+.featured_product_main .slick-slide {
+    width: 324px!important;
+}
+  
+}
+  @media  (max-width: 768px) {
+    .featured_product_main .slick-dots li {
+        width: 38px;
+    }
+}
+</style>
+
+
+<div class="featured_product_section featured_prod_template--18137954255017__featured_products_XAcNwg full-width" id="featured_products_template--18137954255017__featured_products_XAcNwg">
+  <div class="page_width  full_width ">
+    <div class="product_heading" id="product_heading_template--18137954255017__featured_products_XAcNwg">
+        <div class="heading  left " id="heading_template--18137954255017__featured_products_XAcNwg">
+          <h2>{{ section.settings.title }}</h2>
+        </div>
+      <div class="view_all" id="view_allBtn_template--18137954255017__featured_products_XAcNwg">
+          <a href="{{ section.settings.btn_text_url }}">{{ section.settings.btn_text }}</a>
+        </div>
+    </div>
+  <div class="featured_product_mains">
+    {%- for card_product in section.settings.collection.products limit: section.settings.products_to_show -%}
+    <div class="product_list">
+          <div class="image" id="product_image_8311993630889">
+            <a href="{{ card_product.url  | within: collection }}" id="featured_product_main_8311993630889" tabindex="-1">
+              <img class="first_image" src="{{ card_product.featured_image | img_url: 'master' }}"  height="420" width="420" loading="lazy">
+              
+              <img class="second_image" src="{{ card_product.images[1] | img_url: 'master' }}" height="420" width="420" loading="lazy">
+               
+            </a>
+
+             {% if card_product.metafields.custom.badge.value != blank %}
+              <div class="product_tag prodCallout tag__LAST CHANCE ">
+               {{  card_product.metafields.custom.badge.value }}
+              </div>
+               {% endif %}
+            
+          </div>
+          <div class="content" id="product_content_8311993630889">
+            <div class="product_title" id="product_title_8311993630889">
+              <a href="{{ card_product.url  | within: collection }}" tabindex="-1">
+                <h4>{{ card_product.title }}  </h4>
+              </a>
+            </div>
+
+               {% render 'price-card', product: card_product, price_class: '', show_compare_at_price: true %}
+
+            
+          </div>
+        </div>
+      {% endfor %}
+    
+  </div>
+
+    
+    </div>
+</div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Feature Produt2",
+  "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+        "default": "Shop New Arrivals"
+        },
+       {
+          "type": "collection",
+          "id": "collection",
+          "label": "Select Collection"
+        },
+      {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 10,
+      "label": "Product Show"
+    },
+       {
+          "type": "text",
+          "id": "btn_text",
+          "label": "Buttion Text",
+         "default": "View All"
+        },
+        {
+          "type": "url",
+          "id": "btn_text_url",
+          "label": "Buttion Text url"
+        },
+      {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Left",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Paading Right",
+      "default": 36
+    },
+     {
+      "type": "range",
+      "id": "padding_left_Mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Left Mobile",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_right_Mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Right Mobile",
+      "default": 36
+    }
+
+    
+  ],
+  "presets": [
+    {
+      "name": "Feature Product2"
+    }
+  ]
+}
+
+{% endschema %}

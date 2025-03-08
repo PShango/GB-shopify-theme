@@ -1,0 +1,67 @@
+{% comment %}
+  Renders a list of product's price (regular, sale)
+
+  Accepts:
+  - product: {Object} Product Liquid object (optional)
+  - placeholder: {Boolean} Renders a placeholder price (optional)
+  - use_variant: {Boolean} Renders selected or first variant price instead of overall product pricing (optional)
+  - show_badges: {Boolean} Renders 'Sale' and 'Sold Out' tags if the product matches the condition (optional)
+  - price_class: {String} Adds a price class to the price element (optional)
+  - show_compare_at_price: {Boolean} Renders the compare at price if the product matches the condition (optional)
+
+  Usage:
+  {% render 'price', product: product %}
+{% endcomment %}
+{%- liquid
+  if use_variant
+    assign target = product.selected_or_first_available_variant
+  elsif placeholder
+    assign target = null
+  else
+    assign target = product
+  endif
+
+  assign compare_at_price = target.compare_at_price
+  assign price = target.price | default: 1999
+  assign price_min = product.price_min
+  assign price_max = product.price_max
+  assign available = target.available | default: false
+  assign money_price = price | money
+  assign money_price_min = price_min | money
+  assign money_price_max = price_max | money
+  if settings.currency_code_enabled
+    assign money_price = price | money_with_currency
+    assign money_price_min = price_min | money_with_currency
+    assign money_price_max = price_max | money_with_currency
+  endif
+
+  if target == product and product.price_varies
+    assign money_price = 'products.product.price.from_price_html' | t: price: money_price
+  endif
+-%}
+
+{%- unless target == null and placeholder == null -%}
+
+  <div class="price_main as_compare_price">
+                 <div class="compare_price ">
+                    <span>  <s>{{ compare_at_price | money }}</s></span>
+                 </div>
+                 <div class="product_price">
+                    <span>{{ price | money }}</span>
+                    {%- if compare_at_price > price %}
+                    <span class="saleElement">Sale</span>
+                   {% endif %}
+                 </div>
+               {%- if compare_at_price > price %}
+                 <div class="saveBadge">
+                                   
+                    {%- assign difference = compare_at_price | minus: price -%}
+            
+                    Save {{ difference | money_without_trailing_zeros  }}
+                 </div>
+               {% endif %}
+
+       
+              </div>
+ 
+{% endunless %}

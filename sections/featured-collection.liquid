@@ -1,0 +1,213 @@
+<div id="shopify-section-template--18137954255017__featured_collections_3Drth4" class="shopify-section"><style>
+  
+.featured_collectemplate--18137954255017__featured_collections_3Drth4 {
+  background-color:#f8f8f8;
+}
+
+.featured_collectemplate--18137954255017__featured_collections_3Drth4 .page__width {
+  max-width: 1330px;
+}
+
+.featured_collectemplate--18137954255017__featured_collections_3Drth4 .collection_lists a.collection_link::before {
+  opacity: 20%;
+}
+
+.featured_collection_section .sec_heading h2 {
+  color: rgb(61, 66, 70);
+  font-size: 40px;
+  line-height: 52px;
+  letter-spacing: -0.5px;
+  font-weight: 700;
+  font-style: normal;
+  margin: 0;
+  padding: 0 0 32px; 
+}
+
+.featured_collection_section .featured_collection_main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.featured_collection_section.tex_standard_inner .featured_collection_main {
+  gap: 10px 30px;
+}
+
+.featured_collection_main .collection_lists {
+  position: relative
+}
+
+.collection_lists .featured_image img {
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  border-radius: 30px;
+}
+
+.collection_lists a.collection_link {
+  text-decoration: none;
+}
+
+.collection_lists a.collection_link::before {
+  content: '';
+  position: absolute;
+  background-color: #3d4246;
+  border-radius: 30px;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+  
+.featured_collection_main .content {
+  display:flex;
+  flex-direction:column;
+  gap: 16px;
+  width: 100%;
+  padding:2rem;
+  position: absolute;
+  bottom: 0;
+}
+
+.content .collection_title h2{
+  color: #fff;
+  font-size: 30px;
+  line-height: normal;
+  letter-spacing: -0.5px;
+  font-weight: 700;
+  font-style: normal;
+  margin: 0;
+}
+  
+.content .collection_button span {
+  display: inline-block;
+  padding: 14.5px 2em;
+  background-color: #fff;
+  color: #3d4246;
+  border-radius: 50px;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: normal;
+  text-align: center;
+  width: 100%;
+  max-width: 171px;
+  transition: 0.2s ease all;
+}
+
+.tex_standard_inner .content .collection_button span {
+  background-color: rgb(248, 124, 86);
+  color: #000;
+}
+  
+.content .collection_button span:hover{
+  background-color:rgb(248, 124, 86);
+  transform: translateY(-0.25rem);
+}
+
+.tex_standard_inner .content .collection_button span:hover {
+  background-color: #fff;  
+}
+  
+@media only screen and (max-width: 480px) {
+
+  .featured_collection_section .sec_heading h2 {
+    font-size: 30px;
+    line-height: 39px;
+    padding: 0 0 25px;
+  }
+  
+  .featured_collection_section .featured_collection_main {
+    grid-template-columns: 1fr;
+  }
+
+  .content .collection_title h2 {
+    font-size: 21px;
+  }
+}
+</style>
+
+<div class="featured_collection_section featured_collectemplate--18137954255017__featured_collections_3Drth4 " id="featured_collection_section_template--18137954255017__featured_collections_3Drth4">
+  <div class="full-width  fullwidth ">
+    
+    <div class="featured_collection_main" id="featured_collection_main_template--18137954255017__featured_collections_3Drth4">
+      
+         {% for block in section.blocks %}
+        <div class="collection_lists" id="featured_list_image_9k3mEB">
+          <a class="collection_link" href="{{ block.settings.btn_link }}">
+            <div class="featured_image" id="featured_image_image_9k3mEB">
+              
+                <img src="{{ block.settings.image | img_url: 'master' }}" alt="Adult" height="720" width="900" loading="lazy">
+              
+            </div>
+            <div class="content" id="featured_list_content_image_9k3mEB">
+              <div class="collection_title" id="collection_title_image_9k3mEB">
+                
+                  <h2>{{ block.settings.title }}</h2>
+                
+              </div>
+              
+              <div class="collection_button" id="collection_button_image_9k3mEB">
+                <span>{{ block.settings.btn_text }}</span>
+              </div>
+              
+            </div>
+          </a>
+        </div>
+      
+        {% endfor %}
+      
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Feature Collection",
+  "settings": [
+  
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Collection Image"
+        },
+         {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+           "default": "Kids"
+        },
+        {
+          "type": "text",
+          "id": "btn_text",
+          "label": "Buttion Text",
+          "default": "SHOP NOW"
+        },
+    
+        {
+          "type": "url",
+          "id": "btn_link",
+          "label": "Buttion Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature Collection"
+    }
+  ]
+}
+
+{% endschema %}

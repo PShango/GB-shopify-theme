@@ -1,0 +1,139 @@
+<style>
+
+
+  .img_with_text_marquee {
+    width: 100%;
+}
+
+.text_marquee_slider {
+    --space: 2rem;
+    display: grid;
+    align-content: center;
+    overflow: hidden;
+    height: 35px;
+    gap: var(--space);
+    width: 100%;
+
+}
+  .marquee {
+    --duration: 20s;
+    --gap:  2rem;
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    gap: 2.4rem;
+    width: 100%;
+}
+
+.marquee_group {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: var(--gap);
+    min-width: 100%;
+    animation: scroll var(--duration) linear infinite;
+}
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+  .text_marquee_slider_wrapper .marquee .marquee_group p {
+   color:{{section.settings.colorText}};
+    font-size: {{ section.settings.font_size }}px;
+    line-height: 23px;
+    letter-spacing: -.01em;
+   
+}
+
+
+</style>
+
+
+<div class="text_marquee_slider" {% if section.settings.image != blank %}
+  style="background-image: url('{{ section.settings.image | img_url: 'master' }}');
+background-repeat: no-repeat;
+background-size: cover;" {% else %} style="background: {{ section.settings.colorBackground }}" {% endif %}>
+<div class="img_with_text_marquee">
+  <div class="text_marquee_slider_wrapper">
+    <div class="marquee">
+      <div class="marquee_group">
+
+          {%- for block in section.blocks -%}
+          <p>{{block.settings.message}}</p>
+         {%- endfor -%}
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+</div>
+ <script>
+      var copy = document.querySelector(".marquee_group").cloneNode(true);
+      document.querySelector(".marquee").appendChild(copy);
+    </script>
+{% schema %}
+  {
+    "name": "Announcement Bar",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_announcement_bar",
+        "label": "Show"
+      },
+        {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Background Image"
+      },
+      {
+        "type": "color",
+        "id": "colorBackground",
+        "label": "Background color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "colorText",
+        "label": "Text color",
+        "default": "#000"
+      },
+      {
+  "type": "range",
+  "id": "font_size",
+  "min": 10,
+  "max": 30,
+  "step": 1,
+  "unit": "px",
+  "label": "Font size",
+  "default": 15
+}
+    ],
+    "blocks": [
+          {
+            "type": "header",
+            "name": "Message",
+            "settings": [
+              {
+              "id": "message",
+              "type": "richtext",
+             "label": "Message"
+            }
+            ]
+          }
+      ]
+  }
+{% endschema %}
+
+

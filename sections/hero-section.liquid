@@ -1,0 +1,98 @@
+<div id="shopify-section-template--18137954255017__hero_section_aTUMGB" class="shopify-section">
+  <style>
+    .hero_sectn_template--18137954255017__hero_section_aTUMGB {
+      background-color: #ffffff;
+    }
+
+    .hero_sectn_template--18137954255017__hero_section_aTUMGB .fullwidth .hero_section_main img {
+      border-radius: 8px;
+    }
+
+    .hero_sectn_template--18137954255017__hero_section_aTUMGB .full-width .hero_section_main img {
+      border-radius: 10px;
+    }
+
+    .hero_section .hero_section_main {
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero_section_main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: flex;
+    }
+
+    .hero_section_main img.mobile_image {
+      display: none;
+    }
+
+    @media only screen and (max-width: 480px) {
+
+      .hero_section_main img.deskstop_image {
+        display: none;
+      }
+
+      .hero_section_main img.mobile_image {
+        display: block;
+      }
+    }
+  </style>
+
+  <div
+    class="hero_section 1 hero_sectn_template--18137954255017__hero_section_aTUMGB"
+    id="hero_section__template--18137954255017__hero_section_aTUMGB"
+  >
+    <div class="page__width  fullwidth ">
+      <div class="hero_section_main " id="hero_section__template--18137954255017__hero_section_aTUMGB">
+        <a href="{{ section.settings.link }}" id="anchor__template--18137954255017__hero_section_aTUMGB">
+          <img
+            class="deskstop_image"
+            src="{{ section.settings.desktop_img | img_url: '1920x1080' }}"
+            alt="Hero image"
+            height="1080"
+            width="1920"
+          >
+
+          <img
+            class="mobile_image"
+            src="{{ section.settings.mobile_img | img_url: '1920x1080' }}"
+            alt="Hero image"
+            height="1080"
+            width="1920"
+          >
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero Section",
+  "settings": [
+     {
+      "type": "image_picker",
+      "id": "desktop_img",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_img",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Image Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Section"
+    }
+  ]
+}
+
+{% endschema %}

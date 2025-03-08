@@ -1,0 +1,281 @@
+<div id="shopify-section-template--18137954353321__global_squad_myn4ka" class="shopify-section">
+  <style>
+    .global_squad_template--18137954353321__global_squad_myn4ka {
+      background-color: ;
+    }
+
+    /* custom class */
+    .global_squad_section.global-ak {
+      margin-top: 10rem;
+    }
+
+    .global_squad_section {
+      overflow: hidden;
+    }
+
+    .global_squad_section .page__width {
+      max-width: 1330px;
+    }
+
+    .global_squad_section .full-width{
+      margin: 6px auto 7rem;
+    }
+
+    .global_squad_section .global_head {
+      max-width: 100%;
+      width: calc(50.0% - 10px);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .global_head .heading h2 {
+      color: rgb(61, 66, 70);
+      font-size: 30px;
+      line-height: 39px;
+      letter-spacing: -0.5px;
+      font-weight: 700;
+      font-style: normal;
+      margin: 0;
+    }
+
+    .global_head .description {
+      padding-top: 20px;
+      padding-bottom:7rem;
+    }
+
+    .global_head .description p {
+      color: rgb(61, 66, 70);
+      font-size: 18px;
+      line-height: 32.4px;
+      letter-spacing: -0.5px;
+      font-weight: 400;
+      font-style: normal;
+      margin: 0;
+    }
+
+    .global_head .description strong {
+      font-weight: 700;
+    }
+
+
+    .global_squad_main .slick-slide {
+      padding: 0 10px;
+    }
+
+    .global_squad_main .squad_list img {
+      width: 100%;
+      height: 100%;
+      border-radius: 30px;
+      object-fit: cover;
+      display: flex;
+    }
+
+    .global_squad_main .slick-dots {
+      display: flex;
+      justify-content: center;
+    }
+
+    .global_squad_main .slick-dots li button {
+      display: none;
+    }
+
+    .global_squad_main .slick-dots li {
+      width: 56px;
+      height: 5px;
+      background: #ADADAD;
+      border-radius: 50px;
+    }
+
+    .global_squad_main li.slick-active{
+      background:rgba(248, 124, 86);
+    }
+
+    .global_squad_section .slick-dotted.slick-slider {
+      margin-bottom: 11rem;
+    }
+
+    @media only screen and (max-width: 768px) {
+
+      .global_squad_section .full-width {
+        margin: 4.2px auto 7rem;
+      }
+
+      .global_head .heading h2 {
+        font-size: 21px;
+        line-height: 27.3px;
+      }
+
+      .global_head .description {
+        padding-top: 18px;
+      }
+
+      .global_head .description p {
+        font-size: 16px;
+        line-height: 28.8px;
+      }
+
+
+
+      .global_squad_section .slick-dotted.slick-slider {
+        margin-bottom: 4rem;
+      }
+
+    }
+
+    @media only screen and (max-width: 480px) {
+
+      .global_squad_section.global-ak {
+        margin-top: 6rem;
+      }
+
+      .global_squad_section .global_head {
+        width: 100%;
+      }
+
+      .global_squad_section.global-ak .slick-slide {
+        padding: 0 5px;
+      }
+
+      .global_squad_main .slick-dots li {
+        width: 38px;
+        margin: 0 2px;
+      }
+    }
+  </style>
+  {%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+  {%- endstyle -%}
+  <div class="global_squad_section global_squad_template--18137954353321__global_squad_myn4ka section-{{ section.id }}-padding ">
+    <div class="page__width full-width">
+      <div class="global_head">
+        <div class="heading">
+          <h2>{{ section.settings.title }}</h2>
+        </div>
+
+        {% if section.settings.content != blank %}
+          <div class="description">
+            {{ section.settings.content }}
+          </div>
+        {% endif %}
+      </div>
+      <div class="global_squad_main">
+        {% for block in section.blocks %}
+          <div class="squad_list">
+            <a href="{{ block.settings.link }}">
+              <img src="{{ block.settings.image | img_url: 'master' }}">
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+        $('.global_squad_main').slick({
+        dots:true,
+        infinite: false,
+        speed: 300,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        responsive: [
+          {
+            breakpoint: 1200,
+              settings: {
+              slidesToShow: 4,
+            }
+          },
+          {
+            breakpoint: 768,
+              settings: {
+              slidesToShow: 3,
+            }
+          },
+          {
+            breakpoint: 480,
+              settings: {
+              slidesToShow: 2,
+            }
+          }
+    ]
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Collection Slider",
+  "settings": [
+    {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Global Snuggle Squad"
+        },
+     {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>We're like the cool kids in school, working with the big-name brands like Disney, Warner Brothers, Marvel, DC Comics, AFL, NRL and more! We've got a knack for making cosy stuff that these legends can't resist. Stick with us, and you'll be cuddled up in some seriously awesome gear.</p>"
+        },
+       {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Collection Image"
+        },
+
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Collection Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Slider"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,199 @@
+{% comment %}
+  Renders a megamenu for the header.
+
+  Usage:
+  {% render 'header-mega-menu' %}
+{% endcomment %}
+<style>
+  .mega_menu_inner {
+    padding: 10px 30px 30px;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 7px 10px -4px #00000080;
+}
+  .mega_menu_inner .mega_menu_main {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+  .mega_menu_main .mega_content {
+    min-width: 400px;
+    max-width: 400px;
+    padding: 50px 15px 15px 0;
+}
+  .mega_content .mega_button {
+    margin-top: 20px;
+}
+  .mega_content .mega_button a {
+    display: inline-block;
+    padding: 14.5px 2rem;
+    background-color: #f87c56;
+    border-radius: 30px;
+    color: #121212;
+    font-size: 16px;
+    line-height: normal;
+    letter-spacing: 1px;
+    font-weight: 700;
+    font-style: normal;
+    text-decoration: none;
+    transition: .1s ease-in all;
+    text-transform: uppercase;
+}
+  .mega_menu_main .mega_images_main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+  .mega_images_main .image_list {
+    width: 100%;
+    max-width: 200px;
+}
+  .mega_images_main .image_list a {
+    position: relative;
+}
+  .mega_images_main .image_list .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: flex;
+}
+  .image_list .image_button {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    bottom: 8%;
+    left: 50%;
+    transform: translate(-50%,8%);
+    width: 100%;
+}
+  .image_list .image_button span {
+    padding: 4px 15px;
+    background-color: #f87c56;
+    box-shadow: 0 1px 8px #00000080;
+    border-radius: 2rem;
+    color: #121212;
+    font-size: 16px;
+    line-height: 28.8px;
+    letter-spacing: -.5px;
+    font-weight: 700;
+    font-style: normal;
+    text-decoration: none;
+    transition: .1s ease-in all;
+}
+  .mega_content .heading h2 {
+    color: #3d4246;
+    font-size: 18px;
+    line-height: 32.4px;
+    letter-spacing: -.5px;
+    font-weight: 400;
+    font-style: normal;
+}
+  .image_button.oodie\2122-original-licensed span, .image_button.onesies-rompers span, .image_button.oodie\2122-original-dog span, .image_button.oodie\2122-nrl-original-licensed span, .image_button.outdoor-dog-jacket span {
+    font-size: 1rem;
+}
+</style>
+<nav class="header__inline-menu">
+  <ul class="list-menu list-menu--inline" role="list">
+    {%- for link in section.settings.menu.links -%}
+      <li>
+        {%- if link.links != blank -%}
+          <header-menu>
+            <details id="Details-HeaderMenu-{{ forloop.index }}" class="mega-menu">
+              <summary
+                id="HeaderMenu-{{ link.handle }}"
+                class="header__menu-item list-menu__item link focus-inset"
+              >
+                <span
+                  {%- if link.child_active %}
+                    class="header__active-menu-item"
+                  {% endif %}
+                >
+                  {{- link.title | escape -}}
+                </span>
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </summary>
+              <div
+                id="MegaMenu-Content-{{ forloop.index }}"
+                class="mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
+                tabindex="-1"
+              >
+              <div class="mega_menu_inner">
+                  <div class="mega_menu_main">
+                        <div class="mega_content">
+                          
+                          {%- for block in section.blocks -%}
+                            {% if block.type == 'text' %}
+                              {%- if link.title == block.settings.link_name -%}
+                          <div class="titlebutton">
+                          <div class="heading">
+                              <h2>{{ block.settings.content }}</h2>
+                          </div>
+                          <div class="mega_button">
+                              <a href="{{ block.settings.title_url }}"><span>{{ block.settings.title }} </span></a>
+                          </div>
+                          </div>
+                             {% endif %}
+                          {% endif %}
+                        {% endfor %}
+
+                            
+                        </div>
+                        <div class="mega_images_main">
+                          
+                          
+                             {%- for block in section.blocks -%}
+                            {% if block.type == 'image' %}
+                              {%- if link.title == block.settings.link_name -%}
+                          <div class="image_list child_link">
+                            <a href="{{ block.settings.title_url }}">
+                              <div class="image">
+                  <img class="mask_group meta" src="{{ block.settings.image | img_url: 'master' }}" alt="">
+                                  
+                              </div>
+                              <div class="image_button all-adults ">
+                                  <span>{{ block.settings.title }}</span>
+                              </div>
+                            </a>
+                          </div>
+
+                                    {% endif %}
+                          {% endif %}
+                        {% endfor %}
+                            
+                       
+                            
+                          
+                        </div>
+                  </div>  
+                </div>
+                
+             
+
+
+                
+              </div>
+            </details>
+          </header-menu>
+        {%- else -%}
+          <a
+            id="HeaderMenu-{{ link.handle }}"
+            href="{{ link.url }}"
+            class="header__menu-item list-menu__item link link--text focus-inset"
+            {% if link.current %}
+              aria-current="page"
+            {% endif %}
+          >
+            <span
+              {%- if link.current %}
+                class="header__active-menu-item"
+              {% endif %}
+            >
+              {{- link.title | escape -}}
+            </span>
+          </a>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</nav>

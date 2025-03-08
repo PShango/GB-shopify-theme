@@ -295,3 +295,28 @@ div#Div-3 {
     display: flex;
     flex-wrap: wrap;
 }
+
+
+/*header drawer menu lines*/
+
+.menu-drawer__navigation ul.menu-drawer__menu > li {
+  padding: 0; /* Reset any padding on <li> */
+  position: relative; /* For positioning the pseudo-element */
+}
+
+.menu-drawer__navigation ul.menu-drawer__menu > li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10px; /* Space from the left */
+  right: 10px; /* Space from the right */
+  height: 1px; /* Thicker line */
+  background-color: #e0e0e0; /* Light gray */
+}
+
+.menu-drawer__navigation ul.menu-drawer__menu > li > a.menu-drawer__menu-item {
+  padding: 10px 15px !important;
+  text-decoration: none !important;
+  color: #000 !important;
+  display: block !important;
+}

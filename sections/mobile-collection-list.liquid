@@ -1,13 +1,9 @@
-ALL PERFECT
 {% comment %}
   Section: Mobile Collection List
   Description: Displays a horizontal scrollable list of circular images with titles and Instagram Story-inspired rotating borders.
   Last Updated: 2025-03-08
   Backup Tag: v1.1-fix-tablet-desktop
 {% endcomment %}
-
-
-
 
 <div class="new-mobile-collection-list-wrapper">
   {% comment %} Wrapper for the scrollable list of collection items {% endcomment %}
@@ -29,22 +25,25 @@ ALL PERFECT
     {% endfor %}
   </div>
 </div>
+
 <style>
   /* Wrapper styles for the scrollable list */
   .new-mobile-collection-list-wrapper {
     width: 100%;
     margin: 0 auto;
     overflow-x: auto;
-    padding: 10px 0 10px 5px; /* Reduced top padding from 20px to 10px */
+    padding: 10px 0 10px 5px; /* Default padding */
     box-sizing: border-box;
     max-width: 1600px;
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
   /* Hide scrollbar for a cleaner look */
   .new-mobile-collection-list-wrapper::-webkit-scrollbar {
     display: none;
   }
+
   /* Flex container for the list of items */
   .new-mobile-collection-list {
     display: flex;
@@ -54,6 +53,7 @@ ALL PERFECT
     justify-content: flex-start;
     padding-left: 5px;
   }
+
   /* Ensure text is centered within each item */
   .new-collection-item {
     text-align: center;
@@ -69,10 +69,12 @@ ALL PERFECT
     flex-shrink: 0;
     position: relative;
   }
+
   /* Ensure first item is fully visible but with less margin */
   .new-collection-item:first-child {
     margin-left: 5px;
   }
+
   /* Instagram Story-inspired rotating border */
   .new-collection-image {
     position: relative;
@@ -80,6 +82,7 @@ ALL PERFECT
     height: 100px;
     border-radius: 50%;
   }
+
   .new-collection-image::before {
     content: '';
     position: absolute;
@@ -93,6 +96,7 @@ ALL PERFECT
     z-index: 1;
     pointer-events: none;
   }
+
   .new-collection-image img {
     width: 100%;
     height: 100%;
@@ -101,11 +105,13 @@ ALL PERFECT
     position: relative;
     z-index: 2;
   }
+
   .new-collection-title {
     padding-top: 5px;
     width: 100%;
     text-align: center;
   }
+
   .new-collection-title h4 {
     color: #000;
     font-size: 11px;
@@ -117,6 +123,7 @@ ALL PERFECT
     margin: 0;
     padding: 0 5px;
   }
+
   /* Animation for the rotating border */
   @keyframes rainbowRotate {
     0% {
@@ -126,91 +133,153 @@ ALL PERFECT
       transform: rotate(360deg);
     }
   }
-  
-  /* Tablet styles */
+
+  /* Tablet styles (481px–767px) */
   @media only screen and (min-width: 481px) and (max-width: 767px) {
-    .new-mobile-collection-list-wrapper {
-      padding: 15px 10px; /* Reduced top padding from 20px to 15px */
+    .shopify-section .new-mobile-collection-list-wrapper {
+      padding: 5px 10px; /* Reduced top padding to 5px */
       max-width: 1600px;
       overflow-x: auto;
     }
+
     .new-mobile-collection-list {
       justify-content: flex-start;
-      gap: 17px;
+      gap: 20px; /* Default spacing for tablet */
       padding-left: 5px;
       white-space: nowrap;
       flex-wrap: nowrap;
     }
+
+    .new-collection-item {
+      width: 130px; /* Default tablet size */
+      max-width: 130px;
+      min-width: 130px;
+      height: 170px; /* Default height to match 130px circle */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .new-collection-item:first-child {
       margin-left: 5px;
     }
+
+    .new-collection-image {
+      width: 130px; /* Default circle size for tablet */
+      height: 130px;
+    }
+
+    .new-collection-image img {
+      width: 130px;
+      height: 130px;
+    }
+
+    .new-collection-title h4 {
+      font-size: 14px;
+      line-height: 16px;
+    }
   }
-  
-  /* Desktop styles */
+
+  /* Desktop styles (≥ 768px) */
   @media only screen and (min-width: 768px) {
     .new-mobile-collection-list-wrapper {
-      padding: 20px 0;
+      padding: 10px 0; /* Reduced top padding to 10px */
       max-width: 1600px;
       margin: 0 auto;
       text-align: center;
     }
+
     .new-mobile-collection-list {
-      gap: 20px;
+      gap: 20px; /* Default spacing for desktop */
       justify-content: center;
       display: inline-flex;
       white-space: nowrap;
       flex-wrap: nowrap;
       padding: 0 20px;
     }
+
     .new-collection-item {
-      width: 130px;
-      max-width: 130px;
-      min-width: 130px;
-      height: 170px;
+      width: 110px; /* Reduced from 130px */
+      max-width: 110px;
+      min-width: 110px;
+      height: 150px; /* Adjusted to match 110px circle + title space */
       display: flex;
       flex-direction: column;
       align-items: center;
       margin: 0 5px;
     }
+
     .new-collection-item:first-child {
       margin-left: 5px;
     }
+
     .new-collection-image {
-      width: 130px;
-      height: 130px;
+      width: 110px; /* Reduced from 130px */
+      height: 110px;
     }
+
     .new-collection-image::before {
       top: -4px;
       left: -4px;
       right: -4px;
       bottom: -4px;
     }
+
     .new-collection-image img {
-      width: 130px;
-      height: 130px;
+      width: 110px;
+      height: 110px;
     }
+
     .new-collection-title h4 {
       font-size: 14px;
       line-height: 16px;
     }
   }
-  
-  /* Mobile styles */
+
+  /* Mobile styles (≤ 480px) */
   @media only screen and (max-width: 480px) {
     .new-mobile-collection-list-wrapper {
-      padding: 2px 0 12px 5px; /* Reduced top padding from 20px to 10px */
+      padding: 2px 0 12px 5px; /* Unchanged */
       max-width: 1600px;
     }
+
     .new-mobile-collection-list {
       justify-content: flex-start;
-      gap: 17px;
+      gap: 17px; /* Keep spacing the same */
       padding-left: 5px;
     }
+
+    .new-collection-item {
+      width: 95px; /* Reduced from 100px */
+      max-width: 95px;
+      min-width: 95px;
+      height: 135px; /* Adjusted to match 95px circle + title space */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .new-collection-item:first-child {
       margin-left: 5px;
     }
+
+    .new-collection-image {
+      width: 95px; /* Reduced from 100px */
+      height: 95px;
+    }
+
+    .new-collection-image img {
+      width: 95px;
+      height: 95px;
+    }
+
+    .new-collection-title h4 {
+      font-size: 11px;
+      line-height: 13px;
+    }
   }
 </style>
+
 {% schema %}
 {
   "name": "Mobile Collection List",
@@ -246,4 +315,3 @@ ALL PERFECT
   ]
 }
 {% endschema %}
-

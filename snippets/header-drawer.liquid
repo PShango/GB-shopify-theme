@@ -16,17 +16,30 @@
         {{- 'icon-close.svg' | inline_asset_content -}}
       </span>
     </summary>
-    <div id="menu-drawer" class="gradient menu-drawer motion-reduce color-{{ section.settings.menu_color_scheme }}">
+
+
+
+
+    
+  <!-- IMAGE LINK BLOCKS---RIGHT GAP -->
+ 
+<div id="menu-drawer" class="gradient menu-drawer motion-reduce color-{{ section.settings.menu_color_scheme }}">
+  
       <div class="menu-drawer__inner-container">
         <div class="menu-drawer__navigation-container">
 
 
 
-  <!-- ADD THE CATEGORY BLOCKS HERE -->
+          
+
+  <!-- IMAGE LINK BLOCKS---ADJUST HEIGHT, PADDING OF IMAGE BLOCKS -->
 
   <nav class="menu-drawer__navigation" style="padding-top: 0; margin-top: 0;">
   <!-- Dynamic category blocks -->
+    
   <div style="display: flex; flex-direction: row; gap: 10px; padding: 10px; padding-top: 10px; margin-top: 0;">
+
+    
     {% for block in section.blocks %}
       {% if block.type == 'category_block' and block.settings.image != blank %}
         <a href="{{ block.settings.url }}" style="flex: 1; position: relative; height: 100px; border-radius: 8px; overflow: hidden;">

@@ -1,12 +1,3 @@
-{% comment %}
- 
-sections/header.liquid Close header.liquid
-Removed an extra image block from previous coding
-
-{% endcomment %}
-
-
-
 <link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -20,43 +11,27 @@ Removed an extra image block from previous coding
   <link rel="stylesheet" href="{{ 'component-mega-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- endif -%}
 
-
-
-
-
 {% comment %}
-
 LINE BELOW LOGO--BOX SHADOW
-
 {% endcomment %}
-
 
 <style>
   .header-wrapper--border-bottom {
-    box-shadow: 0 2px 4px #CCCCCC40
-
-;
+    box-shadow: 0 2px 4px #CCCCCC40;
     border-bottom: .1rem solid rgba(var(--color-foreground),.08);
-}
-
-
-
-
-
-
-  
+  }
 
   @media screen and (max-width: 989px) {
     .header__heading, .header__heading-link {
-        text-align: center;
-        padding-left: 5px;
+      text-align: center;
+      padding-left: 5px;
     }
-}
-      .header {
+  }
+  .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
+  }
   header-drawer {
     justify-self: start;
     margin-left: -3.2rem;
@@ -89,7 +64,7 @@ LINE BELOW LOGO--BOX SHADOW
   .list-menu--inline {
     display: inline-flex;
     flex-wrap: wrap;
-
+  }
 
   summary.list-menu__item {
     padding-right: 2.7rem;
@@ -108,78 +83,71 @@ LINE BELOW LOGO--BOX SHADOW
     line-height: calc(1 + 0.8 / var(--font-body-scale));
   }
 
-    
   @media screen and (min-width: 750px) {
-
-    
     .list-menu__item--link {
       padding-bottom: 0.5rem;
       padding-top: 0.5rem;
     }
   }
-    .header {
+  .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
+  }
 </style>
 
 {%- style -%}
 .header {
-    padding: 0px 5rem 0px 5rem;
-    min-height: 75px;
+  padding: 0px 5rem 0px 5rem;
+  min-height: 75px;
 }
-  @media only screen and (max-width: 768px) {
-    .header {
-        padding: 10px 2rem;
-        min-height: auto;
-    }
+@media only screen and (max-width: 768px) {
+  .header {
+    padding: 10px 2rem;
+    min-height: auto;
+  }
 }
 
+.section-header {
+  position: sticky; /* This is for fixing a Safari z-index issue. PR #2147 */
+  margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
+}
+
+@media screen and (min-width: 750px) {
   .section-header {
-    position: sticky; /* This is for fixing a Safari z-index issue. PR #2147 */
-    margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
   }
+}
 
-  @media screen and (min-width: 750px) {
-    .section-header {
-      margin-bottom: {{ section.settings.margin_bottom }}px;
-    }
+@media screen and (min-width: 990px) {
+  .header {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
   }
-
-  @media screen and (min-width: 990px) {
-    .header {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
+}
 {%- endstyle -%}
-
 
 <style>
   .header__heading-logo-wrapper.mobile-visible {
     display: none;
-}
-.header__heading-logo-wrapper.desktop-visible {
+  }
+  .header__heading-logo-wrapper.desktop-visible {
     display: block;
     margin-left: 80px;
-}
-@media (max-width:767px) {
-  .header__heading-logo-wrapper.desktop-visible {
-    display: none;
-}
-.header__heading-logo-wrapper.mobile-visible {
-    display: block;
-   
-  header-drawer {
-    justify-self: start;
-    margin-left: -3.2rem;
-}
+  }
+  @media (max-width: 767px) {
+    .header__heading-logo-wrapper.desktop-visible {
+      display: none;
     }
+    .header__heading-logo-wrapper.mobile-visible {
+      display: block;
+    }
+    header-drawer {
+      justify-self: start;
+      margin-left: -3.2rem;
+    }
+  }
 </style>
-
-
-
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
 
@@ -207,7 +175,7 @@ LINE BELOW LOGO--BOX SHADOW
   <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
     {%- liquid
       if section.settings.menu != blank
-  render 'header-drawer', section: section
+        render 'header-drawer', section: section
       endif
 
       if section.settings.logo_position == 'top-center' or section.settings.menu == blank
@@ -236,7 +204,7 @@ LINE BELOW LOGO--BOX SHADOW
                   preload: true
                 }}
               </div>
-                <div class="header__heading-logo-wrapper mobile-visible">
+              <div class="header__heading-logo-wrapper mobile-visible">
                 {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
                 {%- assign logo_height = settings.logo_width_mobile | divided_by: settings.logo.aspect_ratio -%}
                 {% capture sizes %}(max-width: {{ settings.logo_width_mobile | times: 2 }}px) 50vw, {{ settings.logo_width_mobile }}px{% endcapture %}
@@ -251,7 +219,6 @@ LINE BELOW LOGO--BOX SHADOW
                   preload: true
                 }}
               </div>
-              
             {%- else -%}
               <span class="h2">{{ shop.name }}</span>
             {%- endif -%}
@@ -277,7 +244,7 @@ LINE BELOW LOGO--BOX SHADOW
       {%- endif -%}
           <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
             {%- if settings.logo != blank -%}
-              <div class="header__heading-logo-wrapper  desktop-visible">
+              <div class="header__heading-logo-wrapper desktop-visible">
                 {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
                 {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
                 {% capture sizes %}(min-width: 750px) {{ settings.logo_width }}px, 50vw{% endcapture %}
@@ -292,8 +259,7 @@ LINE BELOW LOGO--BOX SHADOW
                   preload: true
                 }}
               </div>
-
-                   <div class="header__heading-logo-wrapper mobile-visible">
+              <div class="header__heading-logo-wrapper mobile-visible">
                 {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
                 {%- assign logo_height = settings.logo_width_mobile | divided_by: settings.logo.aspect_ratio -%}
                 {% capture sizes %}(max-width: {{ settings.logo_width_mobile | times: 2 }}px) 50vw, {{ settings.logo_width_mobile }}px{% endcapture %}
@@ -343,12 +309,12 @@ LINE BELOW LOGO--BOX SHADOW
       </div>
       {% render 'header-search', input_id: 'Search-In-Modal' %}
 
-       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
-          {% if cart == empty %}
-            <span class="svg-wrapper">{{'icon-cart-empty.svg' | inline_asset_content }}</span>
-          {% else %}
-            <span class="svg-wrapper">{{'icon-cart.svg' | inline_asset_content }}</span>
-          {% endif %}
+      <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
+        {% if cart == empty %}
+          <span class="svg-wrapper">{{'icon-cart-empty.svg' | inline_asset_content }}</span>
+        {% else %}
+          <span class="svg-wrapper">{{'icon-cart.svg' | inline_asset_content }}</span>
+        {% endif %}
         <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
         {%- if cart != empty -%}
           <div class="cart-count-bubble">
@@ -359,7 +325,7 @@ LINE BELOW LOGO--BOX SHADOW
           </div>
         {%- endif -%}
       </a>
-      
+
       {%- if section.settings.enable_customer_avatar -%}
         <a
           href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
@@ -395,8 +361,6 @@ LINE BELOW LOGO--BOX SHADOW
             {% render block %}
         {%- endcase -%}
       {%- endfor -%}
-
-     
     </div>
   </header>
 </{% if section.settings.sticky_header_type != 'none' %}sticky-header{% else %}div{% endif %}>
@@ -405,25 +369,22 @@ LINE BELOW LOGO--BOX SHADOW
   {%- render 'cart-notification', color_scheme: section.settings.color_scheme, desktop_menu_type: section.settings.menu_type_desktop -%}
 {%- endif -%}
 
-
-  <script>
-      // on hover submenu show
-      document.addEventListener('DOMContentLoaded', function() {
-        const menus = document.querySelectorAll('.header__inline-menu details');
-        menus.forEach(function(menu) {
-          menu.addEventListener('mouseover', function() {
-            menus.forEach((otherMenu) => {if (otherMenu !== this) {otherMenu.removeAttribute('open');}});
-            clearTimeout(window.menuTimeout);
-            this.setAttribute('open', '');
-          });
-          menu.addEventListener('mouseout', function() {
-            window.menuTimeout = setTimeout(() => {this.removeAttribute('open');}, 300);
-          });
-        });
+<script>
+  // on hover submenu show
+  document.addEventListener('DOMContentLoaded', function() {
+    const menus = document.querySelectorAll('.header__inline-menu details');
+    menus.forEach(function(menu) {
+      menu.addEventListener('mouseover', function() {
+        menus.forEach((otherMenu) => {if (otherMenu !== this) {otherMenu.removeAttribute('open');}});
+        clearTimeout(window.menuTimeout);
+        this.setAttribute('open', '');
       });
-
-
-    </script>
+      menu.addEventListener('mouseout', function() {
+        window.menuTimeout = setTimeout(() => {this.removeAttribute('open');}, 300);
+      });
+    });
+  });
+</script>
 {% javascript %}
   class StickyHeader extends HTMLElement {
     constructor() {
@@ -685,13 +646,11 @@ LINE BELOW LOGO--BOX SHADOW
       "content": "t:sections.header.settings.header__3.content",
       "info": "t:sections.header.settings.header__4.info"
     },
-  
     {
       "type": "header",
       "content": "t:sections.header.settings.header__5.content",
       "info": "t:sections.header.settings.header__6.info"
     },
-  
     {
       "type": "header",
       "content": "t:sections.header.settings.header__7.content",
@@ -708,7 +667,6 @@ LINE BELOW LOGO--BOX SHADOW
       "type": "header",
       "content": "t:sections.header.settings.mobile_layout.content"
     },
- 
     {
       "type": "header",
       "content": "t:sections.all.spacing"
@@ -746,66 +704,120 @@ LINE BELOW LOGO--BOX SHADOW
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 20
-    }
+    },
+
+    
+    {
+  "type": "header",
+  "content": "Menu Drawer Utility Links"
+},
+{
+  "type": "text",
+  "id": "faq_text",
+  "label": "FAQs Text",
+  "default": "FAQs"
+},
+{
+  "type": "url",
+  "id": "faq_link",
+  "label": "FAQs Link"
+},
+{
+  "type": "text",
+  "id": "contact_text",
+  "label": "Contact Text",
+  "default": "Contact"
+},
+{
+  "type": "url",
+  "id": "contact_link",
+  "label": "Contact Link"
+},
+{
+  "type": "text",
+  "id": "best_sellers_text",
+  "label": "Best Sellers Button Text",
+  "default": "BEST SELLERS"
+},
+{
+  "type": "url",
+  "id": "best_sellers_link",
+  "label": "Best Sellers Button Link"
+},
+{
+  "type": "text",
+  "id": "new_text",
+  "label": "New Button Text",
+  "default": "NEW"
+},
+{
+  "type": "url",
+  "id": "new_link",
+  "label": "New Button Link"
+}
   ],
 
 
 
 
-
-"blocks": [
-  {
-    "type": "text",
-    "name": "Text block",
-     "limit": 1,
-    "settings": [
-       {
-        "label": "Link name",
-        "type": "text",
-        "id": "link_name",
-        "info": "The name of the top-level link that you want the image to appear on."
-      },
-      {
-        "type": "textarea",
-        "id": "content",
-        "label": "Content"
-      },
-       {
-        "type": "text",
-        "id": "title",
-        "label": "Text"
-      },
-      {
-        "type": "url",
-        "id": "title_url",
-        "label": "Text Url"
-      }
-    ]
-  },
-  {
-    "type": "category_block",
-    "name": "Category Image Block",
-    "limit": 4,
-    "settings": [
-      {
-        "type": "image_picker",
-        "id": "image",
-        "label": "Category Image"
-      },
-      {
-        "type": "text",
-        "id": "title",
-        "label": "Category Title",
-        "default": "Category Name"
-      },
-      {
-        "type": "url",
-        "id": "url",
-        "label": "Category Link"
-      }
-    ]
-  }
-]
+  
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text block",
+      "limit": 1,
+      "settings": [
+        {
+          "label": "Link name",
+          "type": "text",
+          "id": "link_name",
+          "info": "The name of the top-level link that you want the image to appear on."
+        },
+        {
+          "type": "textarea",
+          "id": "content",
+          "label": "Content"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Text"
+        },
+        {
+          "type": "url",
+          "id": "title_url",
+          "label": "Text Url"
+        }
+      ]
+    },
+    {
+      "type": "category_block",
+      "name": "Category Image Block",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Category Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category Title",
+          "default": "Category Name"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Category Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header"
+    }
+  ]
 }
 {% endschema %}
-

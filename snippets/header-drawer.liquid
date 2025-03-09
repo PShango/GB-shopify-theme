@@ -204,28 +204,11 @@ id="HeaderDrawer-{{ link.handle }}"
 
 
   
-{% comment %} Header Drawer Menu Url Texts  {% endcomment %}
 
 
           <div class="menu-drawer__utility-links">
       
-  <div id="Div-3" class="flex fl-row">
-  <p class="txt_1 tx-center" id="txt-3-1">
-    <a href="{{ section.settings.url_1 }}" title="{{ section.settings.url_1_text }}" style="font-size: 18px;">{{ section.settings.url_1_text }}</a>
-  </p>
-  <p class="txt_2 tx-right" id="txt-3-2">
-    <a href="{{ section.settings.url_2 }}" title="{{ section.settings.url_2_text }}" style="font-size: 18px;">{{ section.settings.url_2_text }}</a>
-  </p>
-  {% if section.settings.url_3_text != blank and section.settings.url_3 != blank %}
-    <p class="txt_1 tx-center" id="txt-3-3">
-      <a href="{{ section.settings.url_3 }}" title="{{ section.settings.url_3_text }}" style="font-size: 18px;">{{ section.settings.url_3_text }}</a>
-    </p>
-  {% endif %}
-</div>
-            
-
-            
-
+ 
 {% comment %} For bottom buttons in drawer menu  {% endcomment %}
 {% if section.settings.show_button_1 or section.settings.show_button_2 %}
   <div id="Div-4" class="flex fl-row">
@@ -291,6 +274,21 @@ Header drawer buttons:
             
             
 
+
+
+ <div id="Div-3" class="flex fl-row">
+  <p class="txt_1 tx-center" id="txt-3-1">
+    <a href="{{ section.settings.url_1 }}" title="{{ section.settings.url_1_text }}" style="font-size: 18px;">{{ section.settings.url_1_text }}</a>
+  </p>
+  <p class="txt_2 tx-right" id="txt-3-2">
+    <a href="{{ section.settings.url_2 }}" title="{{ section.settings.url_2_text }}" style="font-size: 18px;">{{ section.settings.url_2_text }}</a>
+  </p>
+  {% if section.settings.url_3_text != blank and section.settings.url_3 != blank %}
+    <p class="txt_1 tx-center" id="txt-3-3">
+      <a href="{{ section.settings.url_3 }}" title="{{ section.settings.url_3_text }}" style="font-size: 18px;">{{ section.settings.url_3_text }}</a>
+    </p>
+  {% endif %}
+</div>
 
             
 

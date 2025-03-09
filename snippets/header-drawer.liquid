@@ -175,7 +175,9 @@
 
 
           
-          <div class="menu-drawer__utility-links">
+
+
+<div class="menu-drawer__utility-links">
   <div id="Div-3" class="flex fl-row">
     <p class="txt_1 tx-center" id="txt-3-1">
       <a href="{{ section.settings.faq_link }}" title="{{ section.settings.faq_text }}">{{ section.settings.faq_text }}</a>
@@ -183,12 +185,17 @@
     <p class="txt_2 tx-right" id="txt-3-2">
       <a href="{{ section.settings.contact_link }}" title="{{ section.settings.contact_text }}">{{ section.settings.contact_text }}</a>
     </p>
+    {% if section.settings.extra_link_text != blank and section.settings.extra_link_url != blank %}
+      <p class="txt_1 tx-center" id="txt-3-3">
+        <a href="{{ section.settings.extra_link_url }}" title="{{ section.settings.extra_link_text }}">{{ section.settings.extra_link_text }}</a>
+      </p>
+    {% endif %}
   </div>
   <div id="Div-4" class="flex fl-row">
     <a class="fl-button-accent " id="txt-4-0" href="{{ section.settings.best_sellers_link }}" title="{{ section.settings.best_sellers_text }}">{{ section.settings.best_sellers_text }}</a>
     <a class="fl-button-accent2" id="txt-4-1" href="{{ section.settings.new_link }}" title="{{ section.settings.new_text }}">{{ section.settings.new_text }}</a>
   </div>
-  <!-- Rest of the utility links (customer account, social links, etc.) remains unchanged -->
+
   {%- if shop.customer_accounts_enabled -%}
     <a
       href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
@@ -304,6 +311,9 @@
     {%- endif -%}
   </ul>
 </div>
+
+
+          
 
 
           

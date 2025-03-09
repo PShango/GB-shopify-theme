@@ -1,3 +1,12 @@
+{% comment %}
+ 
+sections/header.liquid Close header.liquid
+Removed an extra image block from previous coding
+
+{% endcomment %}
+
+
+
 <link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -12,11 +21,30 @@
 {%- endif -%}
 
 
+
+
+
+{% comment %}
+
+LINE BELOW LOGO--BOX SHADOW
+
+{% endcomment %}
+
+
 <style>
   .header-wrapper--border-bottom {
-    box-shadow: 0 2px 4px #00000047;
+    box-shadow: 0 2px 4px #CCCCCC40
+
+;
     border-bottom: .1rem solid rgba(var(--color-foreground),.08);
 }
+
+
+
+
+
+
+  
 
   @media screen and (max-width: 989px) {
     .header__heading, .header__heading-link {
@@ -780,3 +808,4 @@
 ]
 }
 {% endschema %}
+

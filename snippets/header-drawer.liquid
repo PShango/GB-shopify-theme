@@ -5,6 +5,30 @@
   {% render 'header-drawer', section: section %}
 {% endcomment %}
 
+
+
+
+{% comment %}
+  to increase oadding for all drawer menu items use this:
+
+<style>
+  .menu-drawer__menu li {
+    margin-bottom: 0.8rem !important;
+  }
+</style>
+
+{% endcomment %}
+
+
+<style>
+  /* Increase bottom padding of category image blocks */
+  .menu-drawer__navigation > div:first-of-type {
+    margin-bottom: 15px !important;
+  }
+</style>
+
+
+
 <header-drawer data-breakpoint="{% if section.settings.menu_type_desktop == 'drawer' %}desktop{% else %}tablet{% endif %}">
   <details id="Details-menu-drawer-container" class="menu-drawer-container">
     <summary
@@ -58,14 +82,14 @@ Padding for menu items:
                 <li>
                   {%- if link.links != blank -%}
                     <details id="Details-menu-drawer-menu-item-{{ forloop.index }}">
-                      <summary
-                        id="HeaderDrawer-{{ link.handle }}"
+
+
+<summary
+  id="HeaderDrawer-{{ link.handle }}"
+  class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.child_active %} menu-drawer__menu-item--active{% endif %}"
+>
 
                       
-                        class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.child_active %} menu-drawer__menu-item--active{% endif %}"
-                    
-                        
-                        >
                         {{ link.title | escape }}
                         <span class="svg-wrapper">
                           {{- 'icon-arrow.svg' | inline_asset_content -}}
@@ -158,15 +182,19 @@ Padding for menu items:
                     </details>
                   {%- else -%}
                     <a
-                      id="HeaderDrawer-{{ link.handle }}"
-                      href="{{ link.url }}"
-                      class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %}"
-                      {% if link.current %}
-                        aria-current="page"
-                      {% endif %}
-                    >
-                      {{ link.title | escape }}
-                    </a>
+                      
+
+id="HeaderDrawer-{{ link.handle }}"
+  href="{{ link.url }}"
+  class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %}"
+  {% if link.current %}
+    aria-current="page"
+  {% endif %}
+>
+  {{ link.title | escape }}
+</a>
+
+                    
                   {%- endif -%}
                 </li>
               {%- endfor -%}

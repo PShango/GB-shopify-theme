@@ -224,37 +224,82 @@ id="HeaderDrawer-{{ link.handle }}"
 </div>
             
 
+            
 
 {% comment %} For bottom buttons in drawer menu  {% endcomment %}
+{% if section.settings.show_button_1 or section.settings.show_button_2 %}
+  <div id="Div-4" class="flex fl-row">
+    {% if section.settings.show_button_1 %}
+      <a class="fl-button-accent" id="txt-4-0" href="{{ section.settings.button_1_link }}" title="{{ section.settings.button_1_text }}" style="background-color: {{ section.settings.button_1_color }}; flex: 1; margin: 0 5px;">{{ section.settings.button_1_text }}</a>
+    {% endif %}
+    
+    {% if section.settings.show_button_2 %}
+      <a class="fl-button-accent2" id="txt-4-1" href="{{ section.settings.button_2_link }}" title="{{ section.settings.button_2_text }}" style="background-color: {{ section.settings.button_2_color }}; flex: 1; margin: 0 5px;">{{ section.settings.button_2_text }}</a>
+    {% endif %}
+  </div>
+{% endif %}
+
             
-<div id="Div-4" class="flex fl-row">
-  <a class="fl-button-accent" id="txt-4-0" href="{{ section.settings.button_1_link }}" title="{{ section.settings.button_1_text }}" style="background-color: {{ section.settings.button_1_color }}; flex: 1; margin: 0 5px;">{{ section.settings.button_1_text }}</a>
-  <a class="fl-button-accent2" id="txt-4-1" href="{{ section.settings.button_2_link }}" title="{{ section.settings.button_2_text }}" style="background-color: {{ section.settings.button_2_color }}; flex: 1; margin: 0 5px;">{{ section.settings.button_2_text }}</a>
-</div>
 
 
 
-           {%- if shop.customer_accounts_enabled -%}
+{% comment %}
+Header drawer buttons:
+           {% endcomment %}
+  
+
+{%- if section.settings.show_custom_button -%}
+  <div style="width: 100%; text-align: center; margin-top: 0px; margin-bottom: 15px;">
+    <a 
+      href="{{ section.settings.custom_button_link | default: '/' }}"
+      style="display: block; width: 100%; text-align: center; font-weight: 700; color: #ffffff; padding: 8px 2em; font-size: 16px; line-height: 20px; border-radius: 2.1em; background-color: {{ section.settings.custom_button_color }}; border: 4px solid {{ section.settings.custom_button_color }}; text-decoration: none;"
+      rel="nofollow"
+    >
+      {{ section.settings.custom_button_text }}
+    </a>
+  </div>
+{%- endif -%}
+
+
+
+            
+{%- if section.settings.show_custom_button2 -%}
+  <div style="width: 100%; text-align: center; margin-top: 0px; margin-bottom: 15px;">
+    <a 
+      href="{{ section.settings.custom_button2_link | default: '/' }}"
+      style="display: block; width: 100%; text-align: center; font-weight: 700; color: #ffffff; padding: 8px 2em; font-size: 16px; line-height: 20px; border-radius: 2.1em; background-color: {{ section.settings.custom_button2_color }}; border: 3px solid {{ section.settings.custom_button2_color }}; text-decoration: none;"
+      rel="nofollow"
+    >
+      {{ section.settings.custom_button2_text }}
+    </a>
+  </div>
+{%- endif -%}
+            
+            
+
+{%- if shop.customer_accounts_enabled and section.settings.show_login_button -%}
   <div style="width: 100%; text-align: center; margin-top: 0px; margin-bottom: 15px;">
     <a 
       href="{%- if section.settings.login_button_link != blank -%}{{ section.settings.login_button_link }}{%- else -%}{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}{%- endif -%}"
-      style="display: block; width: 100%; text-align: center; font-weight: 700; color: {{ section.settings.login_button_color }}; padding: 8px 2em; font-size: 16px; line-height: 20px; border-radius: 2.1em; background-color: transparent; border: 2px solid {{ section.settings.login_button_color }};"
+      style="display: block; width: 100%; text-align: center; font-weight: 700; color: {{ section.settings.login_button_color }}; padding: 8px 2em; font-size: 16px; line-height: 20px; border-radius: 2.1em; background-color: transparent; border: 2px solid {{ section.settings.login_button_color }}; text-decoration: none;"
       rel="nofollow"
     >
       {{ section.settings.login_button_text }}
     </a>
   </div>
 {%- endif -%}
+            
+            
 
 
             
 
 
-            {%- if section.settings.show_social_in_drawer -%}
-<ul class="list list-social list-unstyled" role="list">
-  {%- if section.settings.show_facebook_in_drawer -%}
+           {%- if section.settings.show_social_in_drawer -%}
+<ul class="list list-social list-unstyled" role="list" style="margin-top: 20px;">
+  {%- if settings.social_facebook_link != blank and section.settings.show_facebook_in_drawer -%}
     <li class="list-social__item">
-      <a href="{{ settings.social_facebook_link | default: '/' }}" class="list-social__link link">
+      <a href="{{ settings.social_facebook_link }}" class="list-social__link link">
         <span class="svg-wrapper">
           {{- 'icon-facebook.svg' | inline_asset_content -}}
         </span>
@@ -262,6 +307,8 @@ id="HeaderDrawer-{{ link.handle }}"
       </a>
     </li>
   {%- endif -%}
+
+  
 
   {%- if section.settings.show_instagram_in_drawer -%}
     <li class="list-social__item">

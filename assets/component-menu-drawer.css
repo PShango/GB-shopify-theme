@@ -32,7 +32,7 @@ menu-drawer > details[open] > summary::before {
   z-index: 3;
   left: 0;
   top: 100%;
-  width: 100%;
+  width: calc(100% - 15px);
   padding: 0;
   background-color: rgb(var(--color-background));
   overflow-x: hidden;
@@ -64,7 +64,7 @@ details[open].menu-opening > .menu-drawer__submenu {
 
 @media screen and (min-width: 750px) {
   .menu-drawer {
-    width: 40rem;
+    width: calc(40rem - 15px);
     border-width: 0 var(--drawer-border-width) 0 0;
     border-style: solid;
     border-color: rgba(var(--color-foreground), var(--drawer-border-opacity));
@@ -289,6 +289,11 @@ div#Div-3 {
   .menu-drawer__localization+.list-social {
     margin-top: 1rem;
 }
+
+
+
+
+
   .menu-drawer .list-social {
     justify-content: space-around!important;
     margin-left: -1.25rem;

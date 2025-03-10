@@ -693,35 +693,140 @@
         </button>
       </div>
 
-      <div class="free_shipping_main">
-        {% assign GoalPrice = settings.free_shipping_bar | times: 100 %}
-        {% assign CartPrice = cart.total_price %}
-        {% assign PercentFlow = 100 | times: cart.total_price %}
-        {% assign PercentDivided = PercentFlow | divided_by: GoalPrice %}
-
-        <div class="cart_shipping_warpper">
-          {% if cart.items.size != 0 %}
-            {% if cart.total_price >= GoalPrice %}
-              <p class="cart_unique_success">Congrats! You get <strong class="free-shipping-text">FREE Shipping</strong></p>
-            {% elsif cart.total_price < GoalPrice %}
-              <p class="cart_uniq_away">You're <strong><span class="money">{{ GoalPrice | minus: CartPrice | money }}</span></strong> away from <strong class="free-shipping-text">FREE Shipping</strong></p>
-            {% endif %}
-          {% endif %}
-
-          <div class="main_cart_uniq_bar">
-            <div class="cart_uniq_bar">
-              <span class="cart_progress_bar"></span>
-            </div>
-            <div class="cart_truk">
-              <div class="cart_truk_img">
-                <img src="https://cdn.shopify.com/s/files/1/0572/7282/8095/files/delivery-truck.png" class="shipping_truk">
-              </div>
-              <div class="cart_truk_price">
-                <span><span class="money">$60</span></span>
-              </div>
-            </div>
-          </div>
+    
+      
+      
+      
+      
+    <div class="free_shipping_main">
+  {% assign GoalPrice = settings.free_shipping_bar | times: 100 %}
+  {% assign CartPrice = cart.total_price %}
+  {% assign PercentFlow = 100 | times: cart.total_price %}
+  {% assign PercentDivided = PercentFlow | divided_by: GoalPrice %}
+  <div class="cart_shipping_warpper">
+    {% if cart.items.size != 0 %}
+      {% if cart.total_price >= GoalPrice %}
+        <p class="cart_unique_success">Congrats! You get <strong class="free-shipping-text">FREE Shipping</strong></p>
+      {% elsif cart.total_price < GoalPrice %}
+        <p class="cart_uniq_away">You're <strong><span class="money">{{ GoalPrice | minus: CartPrice | money }}</span></strong> away from <strong class="free-shipping-text">FREE Shipping</strong></p>
+      {% endif %}
+    {% endif %}
+    <div class="main_cart_uniq_bar">
+      <div class="cart_uniq_bar">
+        <span class="cart_progress_bar"></span>
+      </div>
+      <div class="cart_truk">
+        <div class="cart_truk_img">
+          <img src="https://cdn.shopify.com/s/files/1/0572/7282/8095/files/delivery-truck.png" class="shipping_truk">
         </div>
+        <div class="cart_truk_price">
+          <span>{{ settings.free_shipping_bar | money }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Base currency (USD)
+      const baseCurrency = 'USD';
+      
+      // Get current currency
+      const currentCurrency = Shopify.currency.active || '{{ cart.currency.iso_code }}';
+      
+      // Only run conversion if not in USD
+      if (baseCurrency !== currentCurrency) {
+        // Base threshold in USD (in cents)
+        const baseThreshold = {{ settings.free_shipping_bar | times: 100 | json }};
+        
+        // Get currency conversion exchange rate
+        let exchangeRate = 1;
+        if (typeof Shopify !== 'undefined' && Shopify.currency && Shopify.currency.rate) {
+          exchangeRate = Shopify.currency.rate;
+        } else {
+          const exchangeRates = {
+            'USD': 1,
+            'CAD': 1.37,
+            'AUD': 1.52,
+            'GBP': 0.78
+          };
+          exchangeRate = exchangeRates[currentCurrency] || 1;
+        }
+        
+        // Convert threshold to current currency
+        const convertedThreshold = baseThreshold * exchangeRate;
+        
+        // Current cart total
+        const cartTotal = {{ cart.total_price | json }};
+        
+        // Update the free shipping message
+        function updateShippingMessage() {
+          // Calculate remaining amount needed
+          const remaining = Math.max(0, convertedThreshold - cartTotal);
+          
+          // Format the amount in current currency
+          const formatter = new Intl.NumberFormat(document.documentElement.lang || 'en-US', {
+            style: 'currency',
+            currency: currentCurrency
+          });
+          const remainingFormatted = formatter.format(remaining / 100);
+          
+          // Calculate progress percentage
+          const percentComplete = Math.min(100, (cartTotal / convertedThreshold) * 100);
+          
+          // Get elements to update
+          const progressBar = document.querySelector('.cart_progress_bar');
+          const thresholdPrice = document.querySelector('.cart_truk_price span');
+          
+          // Update elements
+          if (progressBar) {
+            progressBar.style.width = percentComplete + '%';
+          }
+          
+          if (thresholdPrice) {
+            thresholdPrice.textContent = formatter.format(convertedThreshold / 100);
+          }
+          
+          // Update message based on qualification
+          if (cartTotal >= convertedThreshold) {
+            const messageElement = document.querySelector('.cart_unique_success');
+            if (!messageElement) {
+              const awayMessage = document.querySelector('.cart_uniq_away');
+              if (awayMessage) {
+                awayMessage.innerHTML = 'Congrats! You get <strong class="free-shipping-text">FREE Shipping</strong>';
+                awayMessage.className = 'cart_unique_success';
+              }
+            }
+          } else {
+            const awayMessage = document.querySelector('.cart_uniq_away');
+            if (awayMessage) {
+              const moneySpan = awayMessage.querySelector('.money');
+              if (moneySpan) {
+                moneySpan.textContent = remainingFormatted;
+              }
+            }
+          }
+        }
+        
+        // Run initially
+        updateShippingMessage();
+        
+        // Also update when cart changes
+        document.addEventListener('cart:updated', updateShippingMessage);
+        document.addEventListener('cart:refresh', updateShippingMessage);
+      }
+    });
+  </script>
+
+      
+
+
+
+
+
+
+
+        
 
         <style>
           .free_shipping_main {
@@ -1282,5 +1387,3 @@
     </div>
   </div>
 </cart-drawer>
-
-

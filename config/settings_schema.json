@@ -1449,12 +1449,19 @@
       "default": "notification",
       "label": "t:settings_schema.cart.settings.cart_type.label"
     },
+
+
+    
     {
-      "type": "text",
-      "id": "free_shipping_bar",
-      "label": "Threshold ",
-      "default": "200"
-    },
+  "type": "text",
+  "id": "free_shipping_bar",
+  "label": "Threshold (in USD)",
+  "info": "This value is in USD and will automatically convert to the customer's local currency",
+  "default": "200"
+},
+
+
+    
     {
       "type": "text",
       "id": "checkout_un_text",
@@ -1518,3 +1525,4 @@
   
  
 ]
+

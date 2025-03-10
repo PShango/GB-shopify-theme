@@ -726,97 +726,102 @@
     </div>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Base currency (USD)
-      const baseCurrency = 'USD';
+
       
-      // Get current currency
-      const currentCurrency = Shopify.currency.active || '{{ cart.currency.iso_code }}';
+
+      <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Base currency (USD)
+    const baseCurrency = 'USD';
+    
+    // Get current currency
+    const currentCurrency = Shopify.currency.active || '{{ cart.currency.iso_code }}';
+    
+    // Only run conversion if not in USD
+    if (baseCurrency !== currentCurrency) {
+      // Base threshold in USD (in cents)
+      const baseThreshold = {{ settings.free_shipping_bar | times: 100 | json }};
       
-      // Only run conversion if not in USD
-      if (baseCurrency !== currentCurrency) {
-        // Base threshold in USD (in cents)
-        const baseThreshold = {{ settings.free_shipping_bar | times: 100 | json }};
+      // Get exchange rate
+      let exchangeRate = 1;
+      if (typeof Shopify !== 'undefined' && Shopify.currency && Shopify.currency.rate) {
+        exchangeRate = Shopify.currency.rate;
+      } else {
+        const exchangeRates = {
+          'USD': 1,
+          'CAD': 1.37,
+          'AUD': 1.52,
+          'GBP': 0.78
+        };
+        exchangeRate = exchangeRates[currentCurrency] || 1;
+      }
+      
+      // Convert threshold to current currency and round it
+      // Multiplying by 100 first, then rounding, then dividing by 100 keeps proper cent values
+      const convertedThreshold = Math.round(baseThreshold * exchangeRate / 100) * 100;
+      
+      // Current cart total
+      const cartTotal = {{ cart.total_price | json }};
+      
+      // Update the free shipping message
+      function updateShippingMessage() {
+        // Calculate remaining amount needed (rounded to nearest currency unit)
+        const remaining = Math.max(0, convertedThreshold - cartTotal);
+        const roundedRemaining = Math.round(remaining / 100) * 100;
         
-        // Get currency conversion exchange rate
-        let exchangeRate = 1;
-        if (typeof Shopify !== 'undefined' && Shopify.currency && Shopify.currency.rate) {
-          exchangeRate = Shopify.currency.rate;
-        } else {
-          const exchangeRates = {
-            'USD': 1,
-            'CAD': 1.37,
-            'AUD': 1.52,
-            'GBP': 0.78
-          };
-          exchangeRate = exchangeRates[currentCurrency] || 1;
+        // Format the amount in current currency
+        const formatter = new Intl.NumberFormat(document.documentElement.lang || 'en-US', {
+          style: 'currency',
+          currency: currentCurrency
+        });
+        const remainingFormatted = formatter.format(roundedRemaining / 100);
+        
+        // Calculate progress percentage
+        const percentComplete = Math.min(100, (cartTotal / convertedThreshold) * 100);
+        
+        // Get elements to update
+        const progressBar = document.querySelector('.cart_progress_bar');
+        const thresholdPrice = document.querySelector('.cart_truk_price span');
+        
+        // Update elements
+        if (progressBar) {
+          progressBar.style.width = percentComplete + '%';
         }
         
-        // Convert threshold to current currency
-        const convertedThreshold = baseThreshold * exchangeRate;
+        if (thresholdPrice) {
+          thresholdPrice.textContent = formatter.format(convertedThreshold / 100);
+        }
         
-        // Current cart total
-        const cartTotal = {{ cart.total_price | json }};
-        
-        // Update the free shipping message
-        function updateShippingMessage() {
-          // Calculate remaining amount needed
-          const remaining = Math.max(0, convertedThreshold - cartTotal);
-          
-          // Format the amount in current currency
-          const formatter = new Intl.NumberFormat(document.documentElement.lang || 'en-US', {
-            style: 'currency',
-            currency: currentCurrency
-          });
-          const remainingFormatted = formatter.format(remaining / 100);
-          
-          // Calculate progress percentage
-          const percentComplete = Math.min(100, (cartTotal / convertedThreshold) * 100);
-          
-          // Get elements to update
-          const progressBar = document.querySelector('.cart_progress_bar');
-          const thresholdPrice = document.querySelector('.cart_truk_price span');
-          
-          // Update elements
-          if (progressBar) {
-            progressBar.style.width = percentComplete + '%';
-          }
-          
-          if (thresholdPrice) {
-            thresholdPrice.textContent = formatter.format(convertedThreshold / 100);
-          }
-          
-          // Update message based on qualification
-          if (cartTotal >= convertedThreshold) {
-            const messageElement = document.querySelector('.cart_unique_success');
-            if (!messageElement) {
-              const awayMessage = document.querySelector('.cart_uniq_away');
-              if (awayMessage) {
-                awayMessage.innerHTML = 'Congrats! You get <strong class="free-shipping-text">FREE Shipping</strong>';
-                awayMessage.className = 'cart_unique_success';
-              }
-            }
-          } else {
+        // Update message based on qualification
+        if (cartTotal >= convertedThreshold) {
+          const messageElement = document.querySelector('.cart_unique_success');
+          if (!messageElement) {
             const awayMessage = document.querySelector('.cart_uniq_away');
             if (awayMessage) {
-              const moneySpan = awayMessage.querySelector('.money');
-              if (moneySpan) {
-                moneySpan.textContent = remainingFormatted;
-              }
+              awayMessage.innerHTML = 'Congrats! You get <strong class="free-shipping-text">FREE Shipping</strong>';
+              awayMessage.className = 'cart_unique_success';
+            }
+          }
+        } else {
+          const awayMessage = document.querySelector('.cart_uniq_away');
+          if (awayMessage) {
+            const moneySpan = awayMessage.querySelector('.money');
+            if (moneySpan) {
+              moneySpan.textContent = remainingFormatted;
             }
           }
         }
-        
-        // Run initially
-        updateShippingMessage();
-        
-        // Also update when cart changes
-        document.addEventListener('cart:updated', updateShippingMessage);
-        document.addEventListener('cart:refresh', updateShippingMessage);
       }
-    });
-  </script>
+      
+      // Run initially
+      updateShippingMessage();
+      
+      // Also update when cart changes
+      document.addEventListener('cart:updated', updateShippingMessage);
+      document.addEventListener('cart:refresh', updateShippingMessage);
+    }
+  });
+</script>
 
       
 

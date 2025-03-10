@@ -1423,63 +1423,99 @@
       }
     ]
   },
-  {
-    "name": "t:settings_schema.cart.name",
-    "settings": [
-      {
-        "type": "select",
-        "id": "cart_type",
-        "options": [
-          {
-            "value": "drawer",
-            "label": "t:settings_schema.cart.settings.cart_type.drawer.label"
-          },
-          {
-            "value": "page",
-            "label": "t:settings_schema.cart.settings.cart_type.page.label"
-          },
-          {
-            "value": "notification",
-            "label": "t:settings_schema.cart.settings.cart_type.notification.label"
-          }
-        ],
-        "default": "notification",
-        "label": "t:settings_schema.cart.settings.cart_type.label"
-      },
-       {
-        "type": "text",
-        "id": "free_shipping_bar",
-        "label": "Threshold ",
-        "default": "200"
-      },
-       {
-        "type": "text",
-        "id": "checkout_un_text",
-        "label": "Checkout Under Text ",
-        "default": "100% Satisfaction Guarantee Or Your Money Back!"
-      },
-      {
-        "type": "checkbox",
-        "id": "show_vendor",
-        "label": "t:settings_schema.cart.settings.show_vendor.label",
-        "default": false
-      },
-      {
-        "type": "checkbox",
-        "id": "show_cart_note",
-        "label": "t:settings_schema.cart.settings.show_cart_note.label",
-        "default": false
-      },
-      {
-        "type": "header",
-        "content": "t:settings_schema.cart.settings.cart_drawer.header"
-      },
-      {
-        "type": "color_scheme",
-        "id": "cart_color_scheme",
-        "label": "t:sections.all.colors.label",
-        "default": "scheme-1"
-      }
-    ]
-  }
+
+
+
+{
+  "name": "t:settings_schema.cart.name",
+  "settings": [
+    {
+      "type": "select",
+      "id": "cart_type",
+      "options": [
+        {
+          "value": "drawer",
+          "label": "t:settings_schema.cart.settings.cart_type.drawer.label"
+        },
+        {
+          "value": "page",
+          "label": "t:settings_schema.cart.settings.cart_type.page.label"
+        },
+        {
+          "value": "notification",
+          "label": "t:settings_schema.cart.settings.cart_type.notification.label"
+        }
+      ],
+      "default": "notification",
+      "label": "t:settings_schema.cart.settings.cart_type.label"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_bar",
+      "label": "Threshold ",
+      "default": "200"
+    },
+    {
+      "type": "text",
+      "id": "checkout_un_text",
+      "label": "Checkout Under Text ",
+      "default": "100% Satisfaction Guarantee Or Your Money Back!"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "t:settings_schema.cart.settings.show_vendor.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart_note",
+      "label": "t:settings_schema.cart.settings.show_cart_note.label",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:settings_schema.cart.settings.cart_drawer.header"
+    },
+    {
+      "type": "color_scheme",
+      "id": "cart_color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Shipping Bar Customization"
+    },
+    {
+      "type": "color",
+      "id": "shipping_bar_background_color",
+      "label": "Shipping Bar Background Color",
+      "default": "#EFEFEF"
+    },
+    {
+      "type": "color",
+      "id": "shipping_progress_bar_color",
+      "label": "Shipping Progress Bar Color",
+      "default": "#92C1E9"
+    },
+    {
+      "type": "color",
+      "id": "free_shipping_text_color",
+      "label": "FREE Shipping Text Color",
+      "default": "#20ae4d"
+    },
+    {
+      "type": "color",
+      "id": "shipping_progress_bar_threshold_reached_color",
+      "label": "Shipping Progress Bar Threshold Reached Color",
+      "default": "#20AE4D"
+    }
+  ]
+}
+  
+
+  
+ 
 ]
+
